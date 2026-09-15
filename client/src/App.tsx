@@ -2066,6 +2066,311 @@ const ResultsPage = ({ onNavigate, result }: { onNavigate: (page: string) => voi
 
 // ── Main App ──────────────────────────────────────────────────────────────────
 
+
+// ── Help Page Components ──────────────────────────────────────────────────────
+
+const BookIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+  </svg>
+)
+
+const EyeIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+)
+
+const AccessibilityIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="16" cy="4" r="1" />
+    <path d="M12 2v20M17 9h-4a2 2 0 0 0-2 2v1h5.5M10.8 19l2.8-2.8M18 22l-2-2" />
+    <circle cx="12" cy="12" r="10" />
+  </svg>
+)
+
+const MessageSquareIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+  </svg>
+)
+
+interface HelpPlaceholderPageProps {
+  title: string
+  onBack: () => void
+}
+
+const HelpPlaceholderPage = ({ title, onBack }: HelpPlaceholderPageProps) => (
+  <div className="flex-1 flex flex-col" style={{ background: '#06141B' }}>
+    <div className="max-w-3xl w-full mx-auto px-6 py-8">
+      <button
+        onClick={onBack}
+        className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-white mb-8"
+        style={{ color: '#9BA8AB' }}
+      >
+        <ArrowLeftIcon /> Back to Help
+      </button>
+      
+      <div className="rounded-2xl p-8 border text-center flex flex-col items-center justify-center gap-4 py-20" style={{ background: '#11212D', borderColor: '#253745' }}>
+        <div className="w-16 h-16 rounded-full flex items-center justify-center bg-[#253745] text-[#9BA8AB] mb-2">
+          <BookIcon />
+        </div>
+        <h1 className="text-2xl font-semibold" style={{ color: '#CCD0CF' }}>{title}</h1>
+        <p className="text-sm max-w-md" style={{ color: '#9BA8AB' }}>
+          Detailed documentation and step-by-step guides for this topic are currently being developed. Please check back later.
+        </p>
+      </div>
+    </div>
+  </div>
+)
+
+interface HelpPageProps {
+  onNavigate: (page: string) => void
+}
+
+const HelpPage = ({ onNavigate }: HelpPageProps) => {
+  const [searchQuery, setSearchQuery] = useState('')
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [feedbackSent, setFeedbackSent] = useState(false)
+
+  const quickHelpCards = [
+    {
+      id: 'how-it-works',
+      title: 'How to check a scam',
+      description: 'Learn how to analyze a message or screenshot.',
+      icon: <BookIcon />,
+      route: 'help/how-it-works'
+    },
+    {
+      id: 'understanding-results',
+      title: 'Understanding results',
+      description: 'Learn what risk levels and indicators mean.',
+      icon: <EyeIcon />,
+      route: 'help/understanding-results'
+    },
+    {
+      id: 'accessibility',
+      title: 'Language & accessibility',
+      description: 'Learn about available language and accessibility features.',
+      icon: <AccessibilityIcon />,
+      route: 'help/accessibility'
+    },
+    {
+      id: 'privacy',
+      title: 'Privacy & data',
+      description: 'Understand how your submitted information is handled.',
+      icon: <LockIconLg />,
+      route: 'help/privacy'
+    }
+  ]
+
+  const faqs = [
+    {
+      id: 1,
+      question: 'What is ScamShield?',
+      answer: 'ScamShield is an AI-powered financial safety assistant that helps you assess suspicious messages, calls, screenshots, and app prompts to protect you from fraud.'
+    },
+    {
+      id: 2,
+      question: 'How do I check a suspicious message?',
+      answer: 'You can go to the "Check a Scam" tab and paste the text of the message, or upload a screenshot of it. Our AI will analyze the content for known scam indicators.'
+    },
+    {
+      id: 3,
+      question: 'Can ScamShield guarantee that a message is a scam?',
+      answer: 'No. ScamShield provides advisory guidance based on AI predictions and common fraud patterns. It cannot guarantee 100% accuracy and should be used as a helpful tool rather than absolute truth.'
+    },
+    {
+      id: 4,
+      question: 'Does ScamShield ask for my OTP or password?',
+      answer: 'Never. ScamShield will never ask for your passwords, OTPs, PINs, or banking credentials. If anyone asks for these while claiming to be from ScamShield, it is a scam.'
+    },
+    {
+      id: 5,
+      question: 'What should I do if I have already lost money?',
+      answer: 'Act immediately. Please visit our Safety Help page for urgent recovery steps, including contacting your bank and reporting to the Cyber Fraud Helpline (1930).'
+    },
+    {
+      id: 6,
+      question: 'Does ScamShield store my submitted information?',
+      answer: 'ScamShield analyzes your submissions in real-time. We do not persistently store personal identifiable information from your checks unless you explicitly opt-in to help improve our detection models.'
+    }
+  ]
+
+  const filteredCards = quickHelpCards.filter(
+    (c) => c.title.toLowerCase().includes(searchQuery.toLowerCase()) || c.description.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+  
+  const filteredFaqs = faqs.filter(
+    (f) => f.question.toLowerCase().includes(searchQuery.toLowerCase()) || f.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  const handleFeedback = () => {
+    setFeedbackSent(true)
+    setTimeout(() => setFeedbackSent(false), 3000)
+  }
+
+  return (
+    <div className="flex-1 flex flex-col" style={{ background: '#06141B' }}>
+      <div className="max-w-4xl w-full mx-auto px-6 py-10 pb-20">
+        
+        {/* Section A - Header & Search */}
+        <div className="mb-12 text-center flex flex-col items-center">
+          <h1 className="text-3xl font-semibold mb-3" style={{ color: '#CCD0CF' }}>How can we help?</h1>
+          <p className="text-sm mb-8 max-w-lg" style={{ color: '#9BA8AB' }}>Find answers, learn how ScamShield works, or get guidance.</p>
+          
+          <div className="relative w-full max-w-md">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none" style={{ color: '#9BA8AB' }}>
+              <SearchIcon />
+            </div>
+            <input
+              type="text"
+              placeholder="Search help topics..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-11 pr-4 py-3 rounded-xl border text-sm outline-none transition-colors"
+              style={{ 
+                background: '#11212D', 
+                borderColor: '#253745', 
+                color: '#CCD0CF' 
+              }}
+              onFocus={(e) => (e.target.style.borderColor = '#4A5C6A')}
+              onBlur={(e) => (e.target.style.borderColor = '#253745')}
+            />
+          </div>
+        </div>
+
+        {/* Section B - Quick Help Actions */}
+        <div className="mb-14">
+          {filteredCards.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {filteredCards.map((card) => (
+                <button
+                  key={card.id}
+                  onClick={() => onNavigate(card.route)}
+                  className="flex flex-col text-left p-5 rounded-xl border transition-all duration-200 group"
+                  style={{ background: '#11212D', borderColor: '#253745' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#4A5C6A')}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#253745')}
+                >
+                  <div className="flex items-start justify-between w-full mb-3">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ background: '#253745', color: '#CCD0CF' }}>
+                      {card.icon}
+                    </div>
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: '#9BA8AB' }}>
+                      <ArrowRightIcon />
+                    </div>
+                  </div>
+                  <h3 className="font-semibold text-sm mb-1" style={{ color: '#CCD0CF' }}>{card.title}</h3>
+                  <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>{card.description}</p>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-sm" style={{ color: '#9BA8AB' }}>No matching topics found.</p>
+          )}
+        </div>
+
+        {/* Section C - FAQ */}
+        <div className="mb-14">
+          <h2 className="text-lg font-semibold mb-5" style={{ color: '#CCD0CF' }}>Frequently asked questions</h2>
+          {filteredFaqs.length > 0 ? (
+            <div className="flex flex-col gap-3">
+              {filteredFaqs.map((faq) => {
+                const isOpen = expandedFaq === faq.id;
+                return (
+                  <div 
+                    key={faq.id} 
+                    className="rounded-xl border overflow-hidden transition-all duration-200"
+                    style={{ background: '#11212D', borderColor: isOpen ? '#4A5C6A' : '#253745' }}
+                  >
+                    <button
+                      onClick={() => setExpandedFaq(isOpen ? null : faq.id)}
+                      className="w-full text-left px-5 py-4 flex items-center justify-between gap-4 outline-none"
+                    >
+                      <span className="font-medium text-sm" style={{ color: '#CCD0CF' }}>{faq.question}</span>
+                      <div className="shrink-0 transition-transform duration-200" style={{ color: '#9BA8AB', transform: isOpen ? 'rotate(180deg)' : 'none' }}>
+                        <ChevronDownIcon />
+                      </div>
+                    </button>
+                    {isOpen && (
+                      <div className="px-5 pb-5 pt-1 border-t" style={{ borderColor: '#253745' }}>
+                        <p className="text-sm leading-relaxed" style={{ color: '#9BA8AB' }}>{faq.answer}</p>
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <p className="text-center text-sm" style={{ color: '#9BA8AB' }}>No FAQs match your search.</p>
+          )}
+        </div>
+
+        {/* Section D - Guided Support */}
+        <div className="mb-14 rounded-xl border p-6 sm:p-8" style={{ background: '#11212D', borderColor: '#253745' }}>
+          <div className="mb-6">
+            <h2 className="text-lg font-semibold mb-1" style={{ color: '#CCD0CF' }}>Not sure where to start?</h2>
+            <p className="text-sm" style={{ color: '#9BA8AB' }}>Choose what you need help with.</p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button 
+              onClick={() => onNavigate('Check a Scam')}
+              className="flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors text-center"
+              style={{ background: '#CCD0CF', color: '#06141B' }}
+            >
+              Check a suspicious message
+            </button>
+            <button 
+              onClick={() => onNavigate('Safety Help')}
+              className="flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors border text-center"
+              style={{ borderColor: '#4A5C6A', color: '#CCD0CF' }}
+            >
+              Get safety guidance
+            </button>
+            <button 
+              onClick={() => onNavigate('Learn')}
+              className="flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-colors border text-center"
+              style={{ borderColor: '#4A5C6A', color: '#CCD0CF' }}
+            >
+              Learn about scams
+            </button>
+          </div>
+        </div>
+
+        {/* Section E - Feedback */}
+        <div className="flex flex-col items-center justify-center text-center">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center mb-3" style={{ background: '#11212D', color: '#9BA8AB' }}>
+            <MessageSquareIcon />
+          </div>
+          <h2 className="font-semibold mb-1" style={{ color: '#CCD0CF' }}>Help us improve</h2>
+          <p className="text-sm max-w-sm mb-4" style={{ color: '#9BA8AB' }}>
+            Tell us if something was unclear or did not work as expected.
+          </p>
+          <button 
+            onClick={handleFeedback}
+            disabled={feedbackSent}
+            className="py-2.5 px-6 rounded-lg text-sm font-medium transition-colors border outline-none"
+            style={{ 
+              background: feedbackSent ? '#253745' : 'transparent',
+              borderColor: feedbackSent ? '#253745' : '#4A5C6A', 
+              color: feedbackSent ? '#9BA8AB' : '#CCD0CF',
+              cursor: feedbackSent ? 'default' : 'pointer'
+            }}
+          >
+            {feedbackSent ? 'Thank you for your feedback!' : 'Send feedback'}
+          </button>
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
+
+
 const App = () => {
   const [activeNav, setActiveNav] = useState('Home')
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
@@ -2088,7 +2393,7 @@ const App = () => {
         </div>
 
         <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          {['Home', 'Check a Scam', 'Safety Help', 'Learn'].map((link) => (
+          {['Home', 'Check a Scam', 'Safety Help', 'Learn', 'Help'].map((link) => (
             <button
               key={link}
               onClick={() => handleNavigate(link)}
@@ -2155,6 +2460,21 @@ const App = () => {
       )}
       {activeNav === 'safety/incident/evidence' && (
         <SafetyEvidencePage onBack={() => handleNavigate('Safety Help')} />
+      )}
+            {activeNav === 'Help' && (
+        <HelpPage onNavigate={handleNavigate} />
+      )}
+      {activeNav === 'help/how-it-works' && (
+        <HelpPlaceholderPage title="How to check a scam" onBack={() => handleNavigate('Help')} />
+      )}
+      {activeNav === 'help/understanding-results' && (
+        <HelpPlaceholderPage title="Understanding results" onBack={() => handleNavigate('Help')} />
+      )}
+      {activeNav === 'help/accessibility' && (
+        <HelpPlaceholderPage title="Language & accessibility" onBack={() => handleNavigate('Help')} />
+      )}
+      {activeNav === 'help/privacy' && (
+        <HelpPlaceholderPage title="Privacy & data" onBack={() => handleNavigate('Help')} />
       )}
       {activeNav === 'Learn' && (
         <div className="flex-1 flex flex-col items-center justify-center text-gray-500 gap-3 py-24">
