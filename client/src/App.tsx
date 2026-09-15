@@ -1498,7 +1498,8 @@ const MessageInputPage = ({ onBack, onNavigate, setAnalysisResult }: { onBack: (
     if (!text.trim()) return
     setAnalyzing(true)
     try {
-      const res = await fetch('http://localhost:8000/analyze', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const res = await fetch(`${apiUrl}/analyze`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text })
