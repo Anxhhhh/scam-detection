@@ -265,7 +265,7 @@ const VerifyCard = ({ icon, title, description, action, onClick }: VerifyCardPro
   )
 }
 
-<<<<<<< HEAD
+
 // ── Shared UI Elements ────────────────────────────────────────────────────────
 
 const SparklesIcon = () => (
@@ -423,7 +423,7 @@ const ResourceCard = ({ icon, name, purpose, actionLabel, href, onClick, isExter
     </Tag>
   )
 }
->>>>>>> d77db0eb5ea9bebf6fbce56983c4b76b8358e40d
+
 
 // ── Shared Footer ─────────────────────────────────────────────────────────────
 
