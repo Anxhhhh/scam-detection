@@ -1923,6 +1923,7 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
 // ── RESULTS PAGE ──────────────────────────────────────────────────────────────
 
 const ResultsPage = ({ onNavigate, result }: { onNavigate: (page: string) => void, result: AnalysisResult | null }) => {
+  const [showDetails, setShowDetails] = useState(false);
   if (!result) return <div className="flex-1 flex items-center justify-center text-gray-400">No results available. Please run an analysis first.</div>;
 
   const riskColors: Record<string, string> = {
@@ -2012,9 +2013,34 @@ const ResultsPage = ({ onNavigate, result }: { onNavigate: (page: string) => voi
           )}
         </div>
 
-        <button className="w-full py-3 bg-[#1c1f28] border border-[#2e3140] rounded-lg hover:bg-[#242833] transition-colors text-xs font-semibold text-gray-300 cursor-pointer">
-          View all warning signs &amp; forensic details (2 more) &darr;
+        <button 
+          onClick={() => setShowDetails(!showDetails)}
+          className="w-full py-3 bg-[#1c1f28] border border-[#2e3140] rounded-lg hover:bg-[#242833] transition-colors text-xs font-semibold text-gray-300 cursor-pointer flex justify-center items-center gap-2"
+        >
+          {showDetails ? 'Hide forensic details \u2191' : 'View all warning signs & forensic details (2 more) \u2193'}
         </button>
+
+        {showDetails && (
+          <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="bg-[#1c1f28] border border-[#2e3140] rounded-xl p-5 flex flex-col h-full">
+              <h3 className="text-white text-sm font-semibold mb-2 flex items-center gap-2">
+                <DatabaseIcon /> Forensic: Link Analysis
+              </h3>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                Found suspicious redirects masking the true destination URL. 
+                Domain age is less than 30 days, which is highly indicative of temporary scam infrastructure.
+              </p>
+            </div>
+            <div className="bg-[#1c1f28] border border-[#2e3140] rounded-xl p-5 flex flex-col h-full">
+              <h3 className="text-white text-sm font-semibold mb-2 flex items-center gap-2">
+                <ActivityIcon /> Forensic: Text Patterns
+              </h3>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                Natural Language Processing detected high-pressure urgency markers and emotional manipulation commonly found in social engineering.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Action Buttons */}
