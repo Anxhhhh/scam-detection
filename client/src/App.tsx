@@ -2402,7 +2402,7 @@ const App = () => {
         </div>
 
         <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          {['Home', 'Check a Scam', 'Safety Help', 'Learn', 'Help'].map((link) => (
+          {['Home', 'Check a Scam', 'Safety Help', 'Help'].map((link) => (
             <button
               key={link}
               onClick={() => handleNavigate(link)}
