@@ -216,7 +216,7 @@ const VerifyCard = ({ icon, title, description, action, onClick }: VerifyCardPro
 
 const Footer = () => (
   <footer className="border-t border-[#2e3140] px-6 md:px-12 py-8 mt-auto">
-    <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <div className="max-w-[110rem] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
       <div className="max-w-xs">
         <div className="flex items-center gap-2 mb-1.5">
           <span className="text-white"><ShieldIcon /></span>
@@ -250,143 +250,84 @@ const Footer = () => (
 
 const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
   <div className="flex flex-col flex-1">
+    {/* Banner is inside main in new design, let's just render main */}
+    <main className="flex-1 max-w-[110rem] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 pb-12 flex flex-col relative z-10">
+        
+        {/* ── Banner ── */}
+        <div className="w-full bg-[#121214] border border-[#27272a] rounded-xl px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-4 mt-2 mb-16">
+          <div className="flex items-center gap-2.5 text-[13px]">
+            <span className="text-gray-400"><LockIcon /></span>
+            <span className="text-white font-medium">Cardinal Rule:</span>
+            <span className="text-gray-400">Never share your OTP, UPI PIN, or bank passwords with anyone.</span>
+          </div>
+          <button className="text-[13px] text-gray-300 hover:text-white transition-colors flex items-center gap-1.5 font-medium whitespace-nowrap">
+            Official Safety Rules <ArrowRightIcon />
+          </button>
+        </div>
 
-    {/* Cardinal rule banner */}
-    <div className="border-b border-[#2e3140] bg-[#131620] px-6 py-2.5 flex items-center justify-between gap-4">
-      <div className="flex items-center gap-2 text-sm min-w-0">
-        <span className="text-gray-400 shrink-0"><LockIconLg /></span>
-        <p className="text-gray-300 truncate">
-          <span className="text-white font-semibold">Cardinal Rule:</span>{' '}
-          Never share your OTP, UPI PIN, or bank passwords with anyone.
-        </p>
-      </div>
-      <button className="text-white text-xs font-semibold whitespace-nowrap hover:text-gray-300 transition-colors cursor-pointer flex items-center gap-1 shrink-0">
-        Official Safety Rules <ArrowRightIcon />
-      </button>
-    </div>
+        {/* ── Hero Section ── */}
+        <section className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8 flex-1">
+          
+          {/* Left Content */}
+          <div className="w-full lg:w-[55%] z-20">
+            <div className="inline-flex items-center gap-2 border border-[#27272a] bg-[#121214]/50 rounded-full px-3 py-1 text-[11px] font-medium text-gray-400 mb-8 tracking-widest uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Digital Fraud Safety Assistant
+            </div>
 
-    <main className="flex-1 max-w-7xl w-full mx-auto px-6 md:px-12 py-12 md:py-16">
+            <h1 className="text-[3.5rem] md:text-[5rem] font-bold leading-[1.1] tracking-tight mb-6">
+              <span className="text-white">Not sure if it's a<br/>scam?</span><br/>
+              <span className="text-gray-500">Check before you<br/>act.</span>
+            </h1>
 
-      {/* ── Hero ── */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
+            <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-10 max-w-xl">
+              Verify suspicious messages, screenshots, and phone calls in seconds before taking action.
+            </p>
 
-        {/* Left */}
-        <div>
-          <div className="inline-flex items-center gap-2 border border-[#2e3140] rounded-full px-3 py-1 text-xs text-gray-400 mb-6 select-none">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse" />
-            DIGITAL FRAUD SAFETY ASSISTANT
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              <button onClick={() => onNavigate('Check a Scam')} className="flex items-center gap-2 bg-white text-black font-semibold text-[15px] px-6 py-3.5 rounded-xl hover:bg-gray-100 transition-colors">
+                Check a suspicious message <ArrowRightIcon />
+              </button>
+              <button className="flex items-center gap-2 bg-transparent border border-[#27272a] text-gray-300 font-medium text-[15px] px-6 py-3.5 rounded-xl hover:bg-[#18181b] transition-colors">
+                <AlertCircleIcon />
+                I already lost money
+              </button>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-gray-500 text-[13px]">
+              <LockIcon />
+              Anonymous & free. No phone number or login required.
+            </div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 tracking-tight">
-            Not sure if it's a scam?<br />
-            <span className="text-gray-300">Check before you act.</span>
-          </h1>
+          {/* Right Graphic (Phone) */}
+          <div className="w-full lg:w-[50%] flex justify-center lg:justify-end items-center relative pointer-events-none mt-10 lg:mt-0">
+            <img 
+              src="/images/ChatGPT_Image_Sep_15_2026_12_49_13_PM.png" 
+              alt="Phone Mockup" 
+              className="w-full max-w-lg lg:max-w-none lg:w-[130%] xl:w-[145%] h-auto object-contain drop-shadow-2xl lg:-mr-8 xl:-mr-16" 
+            />
+          </div>
+        </section>
 
-          <p className="text-gray-400 text-[15px] md:text-lg leading-relaxed mb-10">
-            Verify suspicious messages, screenshots, and phone calls in seconds before taking action.
-          </p>
-
-          <div className="flex flex-wrap gap-4 mb-6">
-            <button
-              onClick={() => onNavigate('Check a Scam')}
-              className="flex items-center gap-2 bg-white text-[#0f1117] font-semibold text-sm md:text-base px-6 py-3 rounded-lg hover:bg-gray-100 transition-all duration-150 cursor-pointer shadow-lg shadow-white/10"
-            >
-              Check a suspicious message <ArrowRightIcon />
+        {/* ── Verify Options (Bottom) ── */}
+        <div className="mt-auto pt-20 border-t border-[#18181b] flex flex-col md:flex-row items-center justify-between gap-6 z-20">
+          <p className="text-gray-300 font-semibold text-[15px]">What would you like to verify?</p>
+          
+          <div className="flex items-center gap-4 sm:gap-8">
+            <button onClick={() => onNavigate('Check a Scam')} className="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors text-[13px] font-medium">
+              <MessageIcon /> Message
             </button>
-            <button className="flex items-center gap-2 border border-[#3a3d4a] text-gray-300 font-medium text-sm md:text-base px-6 py-3 rounded-lg hover:bg-[#1c1f28] hover:border-[#5a5e6a] transition-all duration-150 cursor-pointer">
-              <AlertCircleIcon />
-              I already lost money
+            <button onClick={() => onNavigate('Check a Scam')} className="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors text-[13px] font-medium">
+              <PhoneIcon /> Phone Call
+            </button>
+            <button onClick={() => onNavigate('Check a Scam')} className="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors text-[13px] font-medium">
+              <ScreenshotIcon /> Screenshot
             </button>
           </div>
-
-          <div className="flex items-center gap-1.5 text-gray-500 text-sm">
-            <LockIcon />
-            Anonymous &amp; free. No phone number or login required.
-          </div>
         </div>
 
-        {/* Right — Zero Trust Graphic */}
-        <div className="flex justify-center lg:justify-end">
-          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
-            <div className="absolute inset-0 rounded-full border border-[#1e2130]" />
-            <div className="absolute inset-6 md:inset-8 rounded-full border border-[#252830]" />
-            <div className="absolute inset-12 md:inset-16 rounded-2xl bg-[#181b24] border border-[#2e3140] flex flex-col items-center justify-center gap-2 shadow-2xl">
-              <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg bg-[#1c1f28] border border-[#2e3140] text-white mb-2">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                </svg>
-              </div>
-              <div className="w-16 h-1 bg-[#2e3140] rounded-full overflow-hidden">
-                <div className="h-full w-2/3 bg-gray-400 rounded-full" />
-              </div>
-              <span className="text-white font-bold text-[10px] md:text-xs tracking-[0.15em] mt-2">ZERO TRUST</span>
-              <span className="text-white font-bold text-[10px] md:text-xs tracking-[0.15em]">ACTIVE</span>
-            </div>
-            {/* Top badge */}
-            <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-4 py-1.5 flex items-center gap-2 whitespace-nowrap shadow-lg">
-              <span className="w-2 h-2 rounded-full bg-green-400 inline-block" />
-              <span className="text-white text-xs md:text-sm font-medium">1930 Verified</span>
-            </div>
-            {/* Bottom badge */}
-            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-4 py-1.5 flex items-center gap-2 whitespace-nowrap shadow-lg">
-              <span className="text-gray-400"><LockIcon /></span>
-              <span className="text-white text-xs md:text-sm font-medium">Encrypted Check</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Verify Section ── */}
-      <section className="mb-10">
-        <div className="flex items-end justify-between mb-5">
-          <div>
-            <h2 className="text-white font-bold text-lg mb-1">What would you like to verify?</h2>
-            <p className="text-gray-400 text-sm">Choose an input mode to assess potential threat signals</p>
-          </div>
-          <span className="text-gray-600 text-[10px] font-semibold tracking-[0.12em] hidden sm:block">FAST EVALUATION ENGINE</span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <VerifyCard icon={<ScreenshotIcon />} title="Check a Screenshot" description="Upload an image or payment notice" />
-          <VerifyCard icon={<MessageIcon />} title="Paste a Message" description="Paste suspicious SMS, WhatsApp or link" />
-          <VerifyCard icon={<CallIcon />} title="Describe a Call" description="Tell us what the caller claimed" />
-        </div>
-      </section>
-
-      {/* Divider */}
-      <div className="border-t border-[#2e3140] mb-10" />
-
-      {/* ── Feature Pillars ── */}
-      <section className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-        <div className="flex items-start gap-4">
-          <div className="text-gray-400 shrink-0 mt-0.5"><CogIcon /></div>
-          <div>
-            <h3 className="text-white font-semibold text-[15px] mb-1">Explainable results</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">Understand the exact warning signs before deciding.</p>
-          </div>
-        </div>
-        <div className="flex items-start gap-4">
-          <div className="text-gray-400 shrink-0 mt-0.5"><BankIcon /></div>
-          <div>
-            <h3 className="text-white font-semibold text-[15px] mb-1">Official guidance</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">Backed by national fraud prevention and safety standards.</p>
-          </div>
-        </div>
-        <div className="flex items-start gap-4">
-          <div className="text-gray-400 shrink-0 mt-0.5">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          <div>
-            <h3 className="text-white font-semibold text-[15px] mb-1">Privacy-first design</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">Zero storage of private credentials, account numbers or OTPs.</p>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
+      </main>
     <Footer />
   </div>
 )
@@ -644,41 +585,36 @@ const App = () => {
     <div className="min-h-screen bg-[#0f1117] text-white flex flex-col" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
 
       {/* Navbar */}
-      <header className="border-b border-[#2e3140] px-6 md:px-12 py-4 flex items-center justify-between sticky top-0 bg-[#0f1117]/95 backdrop-blur-sm z-50">
-        <button
-          onClick={() => handleNavigate('Home')}
-          className="flex items-center gap-2 text-white font-bold text-lg select-none cursor-pointer hover:opacity-80 transition-opacity"
-        >
+      <header className="px-6 md:px-12 lg:px-16 xl:px-24 py-5 flex items-center justify-between z-50 relative max-w-[110rem] w-full mx-auto">
+        <div className="flex items-center gap-2">
           <ShieldIcon />
-          ScamShield
-        </button>
+          <span className="font-bold text-lg tracking-wide">ScamShield</span>
+        </div>
 
-        <nav className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map((link) => (
+        <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+          {['Home', 'Check a Scam', 'Safety Help', 'Learn'].map((link) => (
             <button
               key={link}
               onClick={() => handleNavigate(link)}
-              className={`px-4 py-2 text-sm transition-colors duration-150 cursor-pointer relative ${
-                activeNav === link ? 'text-white font-semibold' : 'text-gray-400 hover:text-gray-200'
+              className={`text-[13px] font-medium transition-colors relative pb-1 ${
+                activeNav === link ? 'text-white' : 'text-gray-400 hover:text-gray-200'
               }`}
             >
               {link}
               {activeNav === link && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-0.5 bg-white rounded-full" />
+                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-white rounded-t-full" />
               )}
             </button>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-gray-400 hidden sm:inline-flex items-center gap-1.5">
+        <div className="flex items-center gap-6">
+          <button className="hidden sm:flex items-center gap-1.5 text-[13px] text-gray-400 hover:text-white transition-colors">
             <TranslateIcon />
             English / हिंदी
-          </span>
-          <button
-            onClick={() => handleNavigate('Check a Scam')}
-            className="bg-white text-[#0f1117] text-sm font-semibold px-4 py-1.5 rounded-lg hover:bg-gray-200 transition-colors duration-150 cursor-pointer"
-          >
+            <ChevronDownIcon />
+          </button>
+          <button className="bg-white text-black text-[13px] font-semibold px-5 py-2 rounded-lg hover:bg-gray-200 transition-colors">
             Check Now
           </button>
         </div>
