@@ -80,14 +80,6 @@ const ArrowRightIcon = () => (
   </svg>
 )
 
-const TranslateIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 8l6 6" /><path d="M4 14l6-6 2-3" />
-    <path d="M2 5h12" /><path d="M7 2h1" />
-    <path d="M22 22l-5-10-5 10" /><path d="M14 18h6" />
-  </svg>
-)
-
 // ── Shared Verify Card ────────────────────────────────────────────────────────
 
 const WarningTriangleIcon = () => (
@@ -2474,11 +2466,7 @@ const App = () => {
         </nav>
 
         <div className="flex items-center gap-4 lg:gap-6">
-          <button className="hidden sm:flex items-center gap-1.5 text-[13px] text-gray-400 hover:text-white transition-colors">
-            <TranslateIcon />
-            English / हिंदी
-            <ChevronDownIcon />
-          </button>
+          <div id="google_translate_element" className="hidden sm:block mt-1"></div>
           <button className="hidden sm:block bg-white text-black text-[13px] font-semibold px-5 py-2 rounded-lg hover:bg-gray-200 transition-colors">
             Check Now
           </button>
@@ -2508,10 +2496,7 @@ const App = () => {
               </button>
             ))}
             <div className="border-t border-[#2e3140] my-2 pt-4 flex flex-col gap-4">
-              <button className="flex items-center gap-1.5 text-base text-gray-400">
-                <TranslateIcon />
-                English / हिंदी
-              </button>
+
               <button className="bg-white text-black text-center font-semibold px-5 py-3 rounded-lg w-full">
                 Check Now
               </button>
