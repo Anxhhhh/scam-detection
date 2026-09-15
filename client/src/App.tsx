@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
+import Tesseract from 'tesseract.js'
 
 // ── Icons (inline SVGs) ──────────────────────────────────────────────────────
 
@@ -1289,7 +1290,7 @@ const SpinnerIcon = () => (
   </svg>
 )
 
-const ScreenshotUploadPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page: string) => void }) => {
+const ScreenshotUploadPage = ({ onBack, onNavigate, setAnalysisResult }: { onBack: () => void; onNavigate: (page: string) => void; setAnalysisResult: (res: AnalysisResult) => void }) => {
   const [dragOver, setDragOver] = useState(false)
   const [file, setFile] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
@@ -1316,13 +1317,26 @@ const ScreenshotUploadPage = ({ onBack, onNavigate }: { onBack: () => void; onNa
     if (f) handleFile(f)
   }
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!file) return
     setAnalyzing(true)
-    setTimeout(() => {
+    try {
+      const { data: { text } } = await Tesseract.recognize(file, 'eng');
+      
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const res = await fetch(`${apiUrl}/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      })
+      const data = await res.json()
+      setAnalysisResult(data)
       setAnalyzing(false)
       onNavigate('Results')
-    }, 2200)
+    } catch (error) {
+      console.error(error);
+      setAnalyzing(false)
+    }
   }
 
   return (
@@ -2424,7 +2438,7 @@ const App = () => {
         <CheckScamPage onBack={() => handleNavigate('Home')} onNavigate={handleNavigate} />
       )}
       {activeNav === 'Upload Screenshot' && (
-        <ScreenshotUploadPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
+        <ScreenshotUploadPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} setAnalysisResult={setAnalysisResult} />
       )}
       {activeNav === 'Paste Message' && (
         <MessageInputPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} setAnalysisResult={setAnalysisResult} />
