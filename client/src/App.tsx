@@ -321,7 +321,6 @@ const InfoCard = ({ icon, title, description }: InfoCardProps) => (
     <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
   </div>
 )
-=======
 // ── Situation Card (Safety Help) ─────────────────────────────────────────────
 
 interface SituationCardProps {
