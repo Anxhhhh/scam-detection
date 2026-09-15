@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useCallback } from 'react'
 
 // ── Icons (inline SVGs) ──────────────────────────────────────────────────────
 
@@ -336,7 +336,7 @@ const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
 
 const CheckScamPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page: string) => void }) => (
   <div className="flex flex-col flex-1">
-    <main className="flex-1 max-w-5xl w-full mx-auto px-6 md:px-12 py-12 md:py-16">
+    <main className="flex-1 max-w-[110rem] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-12 md:py-16">
 
       <button
         onClick={onBack}
@@ -354,9 +354,9 @@ const CheckScamPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate:
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
-        <VerifyCard onClick={() => onNavigate('Results')} icon={<ScreenshotIcon />} title="Screenshot" description="Upload an image." action="Select image" />
-        <VerifyCard onClick={() => onNavigate('Results')} icon={<MessageIcon />} title="Message" description="Paste suspicious text." action="Paste text" />
-        <VerifyCard onClick={() => onNavigate('Results')} icon={<CallIcon />} title="Call" description="Describe what happened." action="Describe call" />
+        <VerifyCard onClick={() => onNavigate('Upload Screenshot')} icon={<ScreenshotIcon />} title="Screenshot" description="Upload an image." action="Select image" />
+        <VerifyCard onClick={() => onNavigate('Paste Message')} icon={<MessageIcon />} title="Message" description="Paste suspicious text." action="Paste text" />
+        <VerifyCard onClick={() => onNavigate('Describe Call')} icon={<CallIcon />} title="Call" description="Describe what happened." action="Describe call" />
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-xl px-6 py-4 mb-4 hover:border-[#4a4e5a] transition-colors duration-200 cursor-pointer group">
@@ -389,11 +389,437 @@ const CheckScamPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate:
   </div>
 )
 
+// ── SCREENSHOT UPLOAD PAGE ───────────────────────────────────────────────────
+
+const UploadIcon = () => (
+  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <polyline points="17 8 12 3 7 8" />
+    <line x1="12" y1="3" x2="12" y2="15" />
+  </svg>
+)
+
+const XIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+)
+
+const SpinnerIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="animate-spin">
+    <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0" strokeOpacity="0.25" />
+    <path d="M21 12a9 9 0 0 1-9 9" />
+  </svg>
+)
+
+const ScreenshotUploadPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page: string) => void }) => {
+  const [dragOver, setDragOver] = useState(false)
+  const [file, setFile] = useState<File | null>(null)
+  const [preview, setPreview] = useState<string | null>(null)
+  const [analyzing, setAnalyzing] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleFile = useCallback((f: File) => {
+    if (!f.type.startsWith('image/')) return
+    setFile(f)
+    const reader = new FileReader()
+    reader.onload = (e) => setPreview(e.target?.result as string)
+    reader.readAsDataURL(f)
+  }, [])
+
+  const onDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault()
+    setDragOver(false)
+    const f = e.dataTransfer.files[0]
+    if (f) handleFile(f)
+  }, [handleFile])
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0]
+    if (f) handleFile(f)
+  }
+
+  const handleAnalyze = () => {
+    if (!file) return
+    setAnalyzing(true)
+    setTimeout(() => {
+      setAnalyzing(false)
+      onNavigate('Results')
+    }, 2200)
+  }
+
+  return (
+    <div className="flex flex-col flex-1">
+      <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-12 md:py-16">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors mb-8 cursor-pointer group"
+        >
+          <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+          Back
+        </button>
+
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-4">
+            <ScreenshotIcon />
+            Screenshot Analysis
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Upload your screenshot</h1>
+          <p className="text-gray-400 text-sm">We'll scan the image for scam indicators. Your image is never stored.</p>
+        </div>
+
+        {!preview ? (
+          <div
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={onDrop}
+            onClick={() => fileInputRef.current?.click()}
+            className={`relative flex flex-col items-center justify-center gap-5 rounded-2xl border-2 border-dashed cursor-pointer transition-all duration-200 py-20 px-8 ${
+              dragOver
+                ? 'border-blue-500 bg-blue-500/5 scale-[1.01]'
+                : 'border-[#2e3140] bg-[#1c1f28] hover:border-[#4a4e5a] hover:bg-[#222530]'
+            }`}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={onInputChange}
+            />
+            <div className={`transition-colors duration-200 ${dragOver ? 'text-blue-400' : 'text-gray-500'}`}>
+              <UploadIcon />
+            </div>
+            <div className="text-center">
+              <p className="text-white font-semibold text-base mb-1">
+                {dragOver ? 'Drop to upload' : 'Drag & drop your screenshot here'}
+              </p>
+              <p className="text-gray-400 text-sm">or <span className="text-blue-400 font-medium">click to browse</span></p>
+            </div>
+            <div className="flex items-center gap-3 mt-2">
+              {['PNG', 'JPG', 'WEBP', 'GIF'].map(fmt => (
+                <span key={fmt} className="text-[10px] font-bold text-gray-500 border border-[#2e3140] rounded px-2 py-0.5">{fmt}</span>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-[#2e3140] bg-[#1c1f28] overflow-hidden">
+            {/* Preview */}
+            <div className="relative">
+              <img src={preview} alt="Preview" className="w-full max-h-[420px] object-contain bg-[#13151e]" />
+              <button
+                onClick={() => { setFile(null); setPreview(null) }}
+                className="absolute top-3 right-3 flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-colors"
+              >
+                <XIcon />
+              </button>
+              <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                <ScreenshotIcon />
+                {file?.name}
+              </div>
+            </div>
+            {/* File info strip */}
+            <div className="px-5 py-4 border-t border-[#2e3140] flex items-center justify-between">
+              <div>
+                <p className="text-white text-sm font-semibold">{file?.name}</p>
+                <p className="text-gray-400 text-xs mt-0.5">{file ? (file.size / 1024).toFixed(1) + ' KB' : ''} · {file?.type}</p>
+              </div>
+              <button
+                onClick={() => { setFile(null); setPreview(null) }}
+                className="text-gray-400 hover:text-white text-xs font-medium transition-colors"
+              >
+                Change
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Tips */}
+        <div className="mt-5 bg-[#131620] border border-[#2e3140] rounded-xl p-4 flex items-start gap-3">
+          <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
+          <p className="text-gray-400 text-xs leading-relaxed">
+            <span className="text-gray-200 font-semibold">Privacy: </span>
+            Your screenshot is processed locally. Phone numbers, names and account IDs are automatically redacted.
+          </p>
+        </div>
+
+        {/* Analyze button */}
+        <button
+          onClick={handleAnalyze}
+          disabled={!file || analyzing}
+          className={`mt-6 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
+            file && !analyzing
+              ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
+              : 'bg-[#2a2d38] text-gray-500 cursor-not-allowed'
+          }`}
+        >
+          {analyzing ? (
+            <><SpinnerIcon /> Analyzing screenshot…</>
+          ) : (
+            <>Analyze Screenshot <ArrowRightIcon /></>
+          )}
+        </button>
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+// ── MESSAGE INPUT PAGE ────────────────────────────────────────────────────────
+
+const MessageInputPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page: string) => void }) => {
+  const [text, setText] = useState('')
+  const [analyzing, setAnalyzing] = useState(false)
+  const maxChars = 2000
+
+  const handleAnalyze = () => {
+    if (!text.trim()) return
+    setAnalyzing(true)
+    setTimeout(() => {
+      setAnalyzing(false)
+      onNavigate('Results')
+    }, 2000)
+  }
+
+  return (
+    <div className="flex flex-col flex-1">
+      <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-12 md:py-16">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors mb-8 cursor-pointer group"
+        >
+          <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+          Back
+        </button>
+
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-4">
+            <MessageIcon />
+            Message Analysis
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Paste the suspicious message</h1>
+          <p className="text-gray-400 text-sm">Copy the full message you received and paste it below.</p>
+        </div>
+
+        <div className="relative">
+          <textarea
+            value={text}
+            onChange={(e) => setText(e.target.value.slice(0, maxChars))}
+            placeholder="Paste the suspicious SMS, WhatsApp message, or email content here…"
+            rows={10}
+            className="w-full bg-[#1c1f28] border border-[#2e3140] rounded-2xl text-white text-sm placeholder-gray-600 px-5 py-4 outline-none resize-none focus:border-[#4a5568] focus:bg-[#222530] transition-all duration-200 leading-relaxed"
+          />
+          <div className="absolute bottom-4 right-4 text-[11px] text-gray-500 font-mono">
+            {text.length}/{maxChars}
+          </div>
+        </div>
+
+        {/* Example prompts */}
+        {text.length === 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            <p className="text-gray-500 text-xs w-full mb-1">Try an example:</p>
+            {[
+              'Your KYC is expired. Click here to update or your account will be blocked.',
+              'Congratulations! You have won ₹50,000. Click the link to claim your prize.',
+              'Your electricity will be disconnected tonight. Pay immediately via this link.'
+            ].map((ex) => (
+              <button
+                key={ex}
+                onClick={() => setText(ex)}
+                className="text-xs text-gray-400 border border-[#2e3140] rounded-lg px-3 py-1.5 hover:border-[#4a4e5a] hover:text-gray-200 hover:bg-[#222530] transition-all text-left"
+              >
+                {ex.length > 60 ? ex.slice(0, 60) + '…' : ex}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Privacy note */}
+        <div className="mt-5 bg-[#131620] border border-[#2e3140] rounded-xl p-4 flex items-start gap-3">
+          <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
+          <p className="text-gray-400 text-xs leading-relaxed">
+            <span className="text-gray-200 font-semibold">Privacy: </span>
+            Phone numbers, account IDs and personal names are automatically redacted before analysis.
+          </p>
+        </div>
+
+        <button
+          onClick={handleAnalyze}
+          disabled={!text.trim() || analyzing}
+          className={`mt-6 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
+            text.trim() && !analyzing
+              ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
+              : 'bg-[#2a2d38] text-gray-500 cursor-not-allowed'
+          }`}
+        >
+          {analyzing ? (
+            <><SpinnerIcon /> Analyzing message…</>
+          ) : (
+            <>Analyze Message <ArrowRightIcon /></>
+          )}
+        </button>
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
+// ── CALL DESCRIBE PAGE ────────────────────────────────────────────────────────
+
+const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page: string) => void }) => {
+  const [callerNumber, setCallerNumber] = useState('')
+  const [callerClaim, setCallerClaim] = useState('')
+  const [description, setDescription] = useState('')
+  const [requested, setRequested] = useState<string[]>([])
+  const [analyzing, setAnalyzing] = useState(false)
+
+  const toggleRequested = (item: string) => {
+    setRequested(prev => prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item])
+  }
+
+  const requestedItems = ['OTP / PIN', 'Bank Account', 'Install an App', 'Money Transfer', 'Personal ID / Aadhaar', 'Password']
+
+  const isValid = description.trim().length > 10
+
+  const handleAnalyze = () => {
+    if (!isValid) return
+    setAnalyzing(true)
+    setTimeout(() => {
+      setAnalyzing(false)
+      onNavigate('Results')
+    }, 2000)
+  }
+
+  return (
+    <div className="flex flex-col flex-1">
+      <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-12 md:py-16">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors mb-8 cursor-pointer group"
+        >
+          <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+          Back
+        </button>
+
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-4">
+            <CallIcon />
+            Call Analysis
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Describe the suspicious call</h1>
+          <p className="text-gray-400 text-sm">Tell us what the caller said or asked for — we'll identify red flags.</p>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          {/* Caller number */}
+          <div>
+            <label className="block text-gray-300 text-sm font-semibold mb-2">
+              Caller's phone number <span className="text-gray-500 font-normal">(optional)</span>
+            </label>
+            <input
+              type="tel"
+              value={callerNumber}
+              onChange={(e) => setCallerNumber(e.target.value)}
+              placeholder="e.g. +91 98765 43210"
+              className="w-full bg-[#1c1f28] border border-[#2e3140] rounded-xl text-white text-sm placeholder-gray-600 px-4 py-3.5 outline-none focus:border-[#4a5568] focus:bg-[#222530] transition-all duration-200"
+            />
+          </div>
+
+          {/* Caller claimed to be */}
+          <div>
+            <label className="block text-gray-300 text-sm font-semibold mb-2">
+              Caller claimed to be
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {['Bank official', 'Electricity dept.', 'Police / CBI', 'Telecom provider', 'RBI officer', 'Insurance agent', 'Other'].map((role) => (
+                <button
+                  key={role}
+                  onClick={() => setCallerClaim(callerClaim === role ? '' : role)}
+                  className={`text-xs font-medium border rounded-full px-3 py-1.5 transition-all duration-150 ${
+                    callerClaim === role
+                      ? 'bg-white text-black border-white'
+                      : 'text-gray-400 border-[#2e3140] hover:border-[#4a4e5a] hover:text-gray-200'
+                  }`}
+                >
+                  {role}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* What they asked for */}
+          <div>
+            <label className="block text-gray-300 text-sm font-semibold mb-2">
+              What did they ask for? <span className="text-gray-500 font-normal">(select all that apply)</span>
+            </label>
+            <div className="flex flex-wrap gap-2">
+              {requestedItems.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => toggleRequested(item)}
+                  className={`text-xs font-medium border rounded-full px-3 py-1.5 transition-all duration-150 ${
+                    requested.includes(item)
+                      ? 'bg-amber-500/20 text-amber-400 border-amber-500/40'
+                      : 'text-gray-400 border-[#2e3140] hover:border-[#4a4e5a] hover:text-gray-200'
+                  }`}
+                >
+                  {requested.includes(item) ? '✓ ' : ''}{item}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Description */}
+          <div>
+            <label className="block text-gray-300 text-sm font-semibold mb-2">
+              Describe what happened <span className="text-red-400">*</span>
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Describe what the caller said, how they pressured you, any links or numbers they gave you…"
+              rows={6}
+              className="w-full bg-[#1c1f28] border border-[#2e3140] rounded-2xl text-white text-sm placeholder-gray-600 px-5 py-4 outline-none resize-none focus:border-[#4a5568] focus:bg-[#222530] transition-all duration-200 leading-relaxed"
+            />
+          </div>
+        </div>
+
+        {/* Privacy note */}
+        <div className="mt-5 bg-[#131620] border border-[#2e3140] rounded-xl p-4 flex items-start gap-3">
+          <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
+          <p className="text-gray-400 text-xs leading-relaxed">
+            <span className="text-gray-200 font-semibold">Privacy: </span>
+            Your information is used only for this analysis and is never stored or shared.
+          </p>
+        </div>
+
+        <button
+          onClick={handleAnalyze}
+          disabled={!isValid || analyzing}
+          className={`mt-6 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
+            isValid && !analyzing
+              ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
+              : 'bg-[#2a2d38] text-gray-500 cursor-not-allowed'
+          }`}
+        >
+          {analyzing ? (
+            <><SpinnerIcon /> Analyzing call description…</>
+          ) : (
+            <>Analyze Call <ArrowRightIcon /></>
+          )}
+        </button>
+      </main>
+      <Footer />
+    </div>
+  )
+}
+
 // ── RESULTS PAGE ──────────────────────────────────────────────────────────────
 
 const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
   <div className="flex flex-col flex-1">
-    <main className="flex-1 max-w-4xl w-full mx-auto px-4 py-8">
+    <main className="flex-1 max-w-[110rem] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-8">
       {/* Top Breadcrumb & ID */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -626,6 +1052,15 @@ const App = () => {
       )}
       {activeNav === 'Check a Scam' && (
         <CheckScamPage onBack={() => handleNavigate('Home')} onNavigate={handleNavigate} />
+      )}
+      {activeNav === 'Upload Screenshot' && (
+        <ScreenshotUploadPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
+      )}
+      {activeNav === 'Paste Message' && (
+        <MessageInputPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
+      )}
+      {activeNav === 'Describe Call' && (
+        <CallDescribePage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
       )}
       {activeNav === 'Results' && (
         <ResultsPage onNavigate={handleNavigate} />
