@@ -212,6 +212,62 @@ const VerifyCard = ({ icon, title, description, action, onClick }: VerifyCardPro
   )
 }
 
+// ── Shared UI Elements ────────────────────────────────────────────────────────
+
+const SparklesIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 3l1.912 5.813a2 2 0 001.275 1.275L21 12l-5.813 1.912a2 2 0 00-1.275 1.275L12 21l-1.912-5.813a2 2 0 00-1.275-1.275L3 12l5.813-1.912a2 2 0 001.275-1.275L12 3z"/>
+  </svg>
+)
+
+const ShieldCheckIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+  </svg>
+)
+
+const LinkIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+  </svg>
+)
+
+const EyeIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+  </svg>
+)
+
+const DatabaseIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+  </svg>
+)
+
+const ActivityIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+  </svg>
+)
+
+interface InfoCardProps {
+  icon: React.ReactNode
+  title: string
+  description: string
+}
+
+const InfoCard = ({ icon, title, description }: InfoCardProps) => (
+  <div className="bg-gradient-to-b from-[#1c1f28] to-[#13151e] border border-[#2e3140] rounded-2xl p-6 shadow-lg shadow-black/20">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="w-10 h-10 rounded-xl bg-[#252837] flex items-center justify-center text-blue-400">
+        {icon}
+      </div>
+      <h3 className="text-white font-semibold">{title}</h3>
+    </div>
+    <p className="text-gray-400 text-sm leading-relaxed">{description}</p>
+  </div>
+)
+
 // ── Shared Footer ─────────────────────────────────────────────────────────────
 
 const Footer = () => (
@@ -450,216 +506,294 @@ const ScreenshotUploadPage = ({ onBack, onNavigate }: { onBack: () => void; onNa
   }
 
   return (
-    <div className="flex flex-col flex-1">
-      <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-12 md:py-16">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors mb-8 cursor-pointer group"
-        >
-          <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
-          Back
-        </button>
-
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-4">
-            <ScreenshotIcon />
-            Screenshot Analysis
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Upload your screenshot</h1>
-          <p className="text-gray-400 text-sm">We'll scan the image for scam indicators. Your image is never stored.</p>
+    <div className="flex flex-col flex-1 w-full">
+      {/* Back nav strip */}
+      <div className="w-full border-b border-[#1e2130]">
+        <div className="max-w-[110rem] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-4">
+          <button
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors cursor-pointer group"
+          >
+            <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+            Back to options
+          </button>
         </div>
+      </div>
 
-        {!preview ? (
-          <div
-            onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={onDrop}
-            onClick={() => fileInputRef.current?.click()}
-            className={`relative flex flex-col items-center justify-center gap-5 rounded-2xl border-2 border-dashed cursor-pointer transition-all duration-200 py-20 px-8 ${
-              dragOver
-                ? 'border-blue-500 bg-blue-500/5 scale-[1.01]'
-                : 'border-[#2e3140] bg-[#1c1f28] hover:border-[#4a4e5a] hover:bg-[#222530]'
+      <main className="flex-1 w-full">
+        <div className="max-w-6xl mx-auto px-6 py-10 md:py-14">
+          <div className="flex flex-col lg:flex-row gap-12 xl:gap-16 items-start">
+            
+            {/* Main Form */}
+            <div className="flex-1 w-full max-w-3xl mx-auto lg:mx-0">
+              <div className="text-center lg:text-left mb-10">
+                <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-5">
+                  <ScreenshotIcon />
+                  Screenshot Analysis
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">Upload your screenshot</h1>
+                <p className="text-gray-500 text-sm">We'll scan the image for scam indicators — never stored or shared.</p>
+              </div>
+
+          {!preview ? (
+            <div
+              onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+              onDragLeave={() => setDragOver(false)}
+              onDrop={onDrop}
+              onClick={() => fileInputRef.current?.click()}
+              className={`relative flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed cursor-pointer transition-all duration-200 py-24 px-8 ${
+                dragOver
+                  ? 'border-blue-500 bg-blue-500/[0.07]'
+                  : 'border-[#2a2e3f] bg-gradient-to-b from-[#1a1d2a] to-[#141620] hover:border-[#3d4255] hover:from-[#1e2130] hover:to-[#181a26]'
+              }`}
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={onInputChange}
+              />
+              {/* Upload icon with glow ring */}
+              <div className={`relative flex items-center justify-center w-20 h-20 rounded-2xl transition-all duration-200 ${
+                dragOver ? 'bg-blue-500/20 text-blue-400' : 'bg-[#252837] text-gray-400'
+              }`}>
+                <UploadIcon />
+                {dragOver && <div className="absolute inset-0 rounded-2xl ring-2 ring-blue-500/50 animate-pulse" />}
+              </div>
+              <div className="text-center">
+                <p className="text-white font-semibold text-lg mb-1.5">
+                  {dragOver ? 'Drop to upload' : 'Drag & drop your screenshot here'}
+                </p>
+                <p className="text-gray-500 text-sm">or <span className="text-blue-400 font-medium hover:text-blue-300 transition-colors">click to browse</span></p>
+              </div>
+              <div className="flex items-center gap-2 mt-1">
+                {['PNG', 'JPG', 'WEBP', 'GIF'].map(fmt => (
+                  <span key={fmt} className="text-[10px] font-bold text-gray-500 bg-[#1c1f2c] border border-[#2e3140] rounded-md px-2.5 py-1">{fmt}</span>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-[#2e3140] bg-[#1c1f28] overflow-hidden">
+              {/* Preview */}
+              <div className="relative">
+                <img src={preview} alt="Preview" className="w-full max-h-[420px] object-contain bg-[#13151e]" />
+                <button
+                  onClick={() => { setFile(null); setPreview(null) }}
+                  className="absolute top-3 right-3 flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-colors"
+                >
+                  <XIcon />
+                </button>
+                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-1.5">
+                  <ScreenshotIcon />
+                  {file?.name}
+                </div>
+              </div>
+              {/* File info strip */}
+              <div className="px-5 py-4 border-t border-[#2e3140] flex items-center justify-between">
+                <div>
+                  <p className="text-white text-sm font-semibold">{file?.name}</p>
+                  <p className="text-gray-400 text-xs mt-0.5">{file ? (file.size / 1024).toFixed(1) + ' KB' : ''} · {file?.type}</p>
+                </div>
+                <button
+                  onClick={() => { setFile(null); setPreview(null) }}
+                  className="text-gray-400 hover:text-white text-xs font-medium transition-colors"
+                >
+                  Change
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Privacy note */}
+          <div className="mt-5 bg-[#131620] border border-[#252837] rounded-xl p-4 flex items-start gap-3">
+            <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              <span className="text-gray-200 font-semibold">Privacy: </span>
+              Your screenshot is analyzed on-device. Phone numbers, names and account IDs are automatically redacted.
+            </p>
+          </div>
+
+          {/* Analyze button */}
+          <button
+            onClick={handleAnalyze}
+            disabled={!file || analyzing}
+            className={`mt-5 mb-8 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
+              file && !analyzing
+                ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
+                : 'bg-[#252837] text-gray-600 cursor-not-allowed'
             }`}
           >
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={onInputChange}
-            />
-            <div className={`transition-colors duration-200 ${dragOver ? 'text-blue-400' : 'text-gray-500'}`}>
-              <UploadIcon />
-            </div>
-            <div className="text-center">
-              <p className="text-white font-semibold text-base mb-1">
-                {dragOver ? 'Drop to upload' : 'Drag & drop your screenshot here'}
-              </p>
-              <p className="text-gray-400 text-sm">or <span className="text-blue-400 font-medium">click to browse</span></p>
-            </div>
-            <div className="flex items-center gap-3 mt-2">
-              {['PNG', 'JPG', 'WEBP', 'GIF'].map(fmt => (
-                <span key={fmt} className="text-[10px] font-bold text-gray-500 border border-[#2e3140] rounded px-2 py-0.5">{fmt}</span>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div className="rounded-2xl border border-[#2e3140] bg-[#1c1f28] overflow-hidden">
-            {/* Preview */}
-            <div className="relative">
-              <img src={preview} alt="Preview" className="w-full max-h-[420px] object-contain bg-[#13151e]" />
-              <button
-                onClick={() => { setFile(null); setPreview(null) }}
-                className="absolute top-3 right-3 flex items-center justify-center w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full backdrop-blur-sm transition-colors"
-              >
-                <XIcon />
-              </button>
-              <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full flex items-center gap-1.5">
-                <ScreenshotIcon />
-                {file?.name}
-              </div>
-            </div>
-            {/* File info strip */}
-            <div className="px-5 py-4 border-t border-[#2e3140] flex items-center justify-between">
-              <div>
-                <p className="text-white text-sm font-semibold">{file?.name}</p>
-                <p className="text-gray-400 text-xs mt-0.5">{file ? (file.size / 1024).toFixed(1) + ' KB' : ''} · {file?.type}</p>
-              </div>
-              <button
-                onClick={() => { setFile(null); setPreview(null) }}
-                className="text-gray-400 hover:text-white text-xs font-medium transition-colors"
-              >
-                Change
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* Tips */}
-        <div className="mt-5 bg-[#131620] border border-[#2e3140] rounded-xl p-4 flex items-start gap-3">
-          <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
-          <p className="text-gray-400 text-xs leading-relaxed">
-            <span className="text-gray-200 font-semibold">Privacy: </span>
-            Your screenshot is processed locally. Phone numbers, names and account IDs are automatically redacted.
-          </p>
+            {analyzing ? (
+              <><SpinnerIcon /> Analyzing screenshot…</>
+            ) : (
+              <>Analyze Screenshot <ArrowRightIcon /></>
+            )}
+          </button>
         </div>
 
-        {/* Analyze button */}
-        <button
-          onClick={handleAnalyze}
-          disabled={!file || analyzing}
-          className={`mt-6 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
-            file && !analyzing
-              ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
-              : 'bg-[#2a2d38] text-gray-500 cursor-not-allowed'
-          }`}
-        >
-          {analyzing ? (
-            <><SpinnerIcon /> Analyzing screenshot…</>
-          ) : (
-            <>Analyze Screenshot <ArrowRightIcon /></>
-          )}
-        </button>
-      </main>
+        {/* Side Cards */}
+        <div className="hidden lg:flex flex-col w-[320px] xl:w-[360px] shrink-0 gap-5">
+          <InfoCard 
+            icon={<SparklesIcon />} 
+            title="AI Analysis" 
+            description="Our advanced AI models scan images for deepfakes, manipulated text, and known scam patterns." 
+          />
+          <InfoCard 
+            icon={<ShieldCheckIcon />} 
+            title="Secure Processing" 
+            description="Your uploads are processed safely and deleted immediately after analysis is complete." 
+          />
+        </div>
+
+      </div>
+    </div>
+  </main>
       <Footer />
     </div>
   )
 }
 
+export interface AnalysisResult {
+  prediction: string;
+  risk_score: number;
+  risk_level: string;
+  indicators: string[];
+  recommendations: string[];
+}
+
 // ── MESSAGE INPUT PAGE ────────────────────────────────────────────────────────
 
-const MessageInputPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page: string) => void }) => {
+const MessageInputPage = ({ onBack, onNavigate, setAnalysisResult }: { onBack: () => void; onNavigate: (page: string) => void; setAnalysisResult: (res: AnalysisResult) => void }) => {
   const [text, setText] = useState('')
   const [analyzing, setAnalyzing] = useState(false)
   const maxChars = 2000
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!text.trim()) return
     setAnalyzing(true)
-    setTimeout(() => {
+    try {
+      const res = await fetch('http://localhost:8000/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      })
+      const data = await res.json()
+      setAnalysisResult(data)
       setAnalyzing(false)
       onNavigate('Results')
-    }, 2000)
+    } catch (error) {
+      console.error("Failed to analyze:", error)
+      setAnalyzing(false)
+    }
   }
 
   return (
-    <div className="flex flex-col flex-1">
-      <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-12 md:py-16">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors mb-8 cursor-pointer group"
-        >
-          <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
-          Back
-        </button>
-
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-4">
-            <MessageIcon />
-            Message Analysis
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Paste the suspicious message</h1>
-          <p className="text-gray-400 text-sm">Copy the full message you received and paste it below.</p>
+    <div className="flex flex-col flex-1 w-full">
+      {/* Back nav strip */}
+      <div className="w-full border-b border-[#1e2130]">
+        <div className="max-w-[110rem] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-4">
+          <button
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors cursor-pointer group"
+          >
+            <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+            Back to options
+          </button>
         </div>
+      </div>
 
-        <div className="relative">
-          <textarea
-            value={text}
-            onChange={(e) => setText(e.target.value.slice(0, maxChars))}
-            placeholder="Paste the suspicious SMS, WhatsApp message, or email content here…"
-            rows={10}
-            className="w-full bg-[#1c1f28] border border-[#2e3140] rounded-2xl text-white text-sm placeholder-gray-600 px-5 py-4 outline-none resize-none focus:border-[#4a5568] focus:bg-[#222530] transition-all duration-200 leading-relaxed"
-          />
-          <div className="absolute bottom-4 right-4 text-[11px] text-gray-500 font-mono">
-            {text.length}/{maxChars}
+      <main className="flex-1 w-full">
+        <div className="max-w-6xl mx-auto px-6 py-10 md:py-14">
+          <div className="flex flex-col lg:flex-row gap-12 xl:gap-16 items-start">
+            
+            {/* Main Form */}
+            <div className="flex-1 w-full max-w-3xl mx-auto lg:mx-0">
+              <div className="text-center lg:text-left mb-10">
+                <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-5">
+                  <MessageIcon />
+                  Message Analysis
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">Paste the suspicious message</h1>
+                <p className="text-gray-500 text-sm">Copy the full message you received and paste it below for instant analysis.</p>
+              </div>
+
+          <div className="relative">
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value.slice(0, maxChars))}
+              placeholder="Paste the suspicious SMS, WhatsApp message, or email content here…"
+              rows={10}
+              className="w-full bg-gradient-to-b from-[#1a1d2a] to-[#141620] border border-[#2a2e3f] rounded-2xl text-white text-sm placeholder-gray-600 px-5 py-4 outline-none resize-none focus:border-[#3d4255] focus:from-[#1e2130] focus:to-[#181a26] transition-all duration-200 leading-relaxed"
+            />
+            <div className="absolute bottom-4 right-4 text-[11px] text-gray-600 font-mono">
+              {text.length}/{maxChars}
+            </div>
           </div>
-        </div>
 
-        {/* Example prompts */}
-        {text.length === 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            <p className="text-gray-500 text-xs w-full mb-1">Try an example:</p>
-            {[
-              'Your KYC is expired. Click here to update or your account will be blocked.',
-              'Congratulations! You have won ₹50,000. Click the link to claim your prize.',
-              'Your electricity will be disconnected tonight. Pay immediately via this link.'
-            ].map((ex) => (
-              <button
-                key={ex}
-                onClick={() => setText(ex)}
-                className="text-xs text-gray-400 border border-[#2e3140] rounded-lg px-3 py-1.5 hover:border-[#4a4e5a] hover:text-gray-200 hover:bg-[#222530] transition-all text-left"
-              >
-                {ex.length > 60 ? ex.slice(0, 60) + '…' : ex}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Privacy note */}
-        <div className="mt-5 bg-[#131620] border border-[#2e3140] rounded-xl p-4 flex items-start gap-3">
-          <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
-          <p className="text-gray-400 text-xs leading-relaxed">
-            <span className="text-gray-200 font-semibold">Privacy: </span>
-            Phone numbers, account IDs and personal names are automatically redacted before analysis.
-          </p>
-        </div>
-
-        <button
-          onClick={handleAnalyze}
-          disabled={!text.trim() || analyzing}
-          className={`mt-6 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
-            text.trim() && !analyzing
-              ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
-              : 'bg-[#2a2d38] text-gray-500 cursor-not-allowed'
-          }`}
-        >
-          {analyzing ? (
-            <><SpinnerIcon /> Analyzing message…</>
-          ) : (
-            <>Analyze Message <ArrowRightIcon /></>
+          {/* Example prompts */}
+          {text.length === 0 && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              <p className="text-gray-500 text-xs w-full mb-1">Try an example:</p>
+              {[
+                'Your KYC is expired. Click here to update or your account will be blocked.',
+                'Congratulations! You have won ₹50,000. Click the link to claim your prize.',
+                'Your electricity will be disconnected tonight. Pay immediately via this link.'
+              ].map((ex) => (
+                <button
+                  key={ex}
+                  onClick={() => setText(ex)}
+                  className="text-xs text-gray-400 border border-[#252837] rounded-lg px-3 py-1.5 hover:border-[#3d4255] hover:text-gray-200 hover:bg-[#1e2130] transition-all text-left"
+                >
+                  {ex.length > 60 ? ex.slice(0, 60) + '…' : ex}
+                </button>
+              ))}
+            </div>
           )}
-        </button>
-      </main>
+
+          {/* Privacy note */}
+          <div className="mt-5 bg-[#131620] border border-[#252837] rounded-xl p-4 flex items-start gap-3">
+            <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
+            <p className="text-gray-400 text-xs leading-relaxed">
+              <span className="text-gray-200 font-semibold">Privacy: </span>
+              Phone numbers, account IDs and personal names are automatically redacted before analysis.
+            </p>
+          </div>
+
+          <button
+            onClick={handleAnalyze}
+            disabled={!text.trim() || analyzing}
+            className={`mt-5 mb-8 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
+              text.trim() && !analyzing
+                ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
+                : 'bg-[#252837] text-gray-600 cursor-not-allowed'
+            }`}
+          >
+            {analyzing ? (
+              <><SpinnerIcon /> Analyzing message…</>
+            ) : (
+              <>Analyze Message <ArrowRightIcon /></>
+            )}
+          </button>
+        </div>
+
+        {/* Side Cards */}
+        <div className="hidden lg:flex flex-col w-[320px] xl:w-[360px] shrink-0 gap-5">
+          <InfoCard 
+            icon={<LinkIcon />} 
+            title="Link Scanning" 
+            description="We check all URLs in your message against global phishing databases." 
+          />
+          <InfoCard 
+            icon={<EyeIcon />} 
+            title="Pattern Recognition" 
+            description="Identifies common scam phrases, urgency tactics, and fraudulent requests." 
+          />
+        </div>
+
+      </div>
+    </div>
+  </main>
       <Footer />
     </div>
   )
@@ -711,24 +845,34 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
   }
 
   return (
-    <div className="flex flex-col flex-1">
-      <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-12 md:py-16">
-        <button
-          onClick={onBack}
-          className="flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors mb-8 cursor-pointer group"
-        >
-          <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
-          Back
-        </button>
-
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-4">
-            <CallIcon />
-            Call Analysis
-          </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">Describe the suspicious call</h1>
-          <p className="text-gray-400 text-sm">Tell us what the caller said or asked for — we'll identify red flags.</p>
+    <div className="flex flex-col flex-1 w-full">
+      {/* Back nav strip */}
+      <div className="w-full border-b border-[#1e2130]">
+        <div className="max-w-[110rem] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-4">
+          <button
+            onClick={onBack}
+            className="inline-flex items-center gap-2 text-gray-400 text-sm hover:text-gray-200 transition-colors cursor-pointer group"
+          >
+            <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+            Back to options
+          </button>
         </div>
+      </div>
+
+      <div className="flex-1 w-full">
+        <main className="max-w-6xl mx-auto px-6 py-10 md:py-14">
+          <div className="flex flex-col lg:flex-row gap-12 xl:gap-16 items-start">
+            
+            {/* Main Form */}
+            <div className="flex-1 w-full max-w-3xl mx-auto lg:mx-0">
+              <div className="text-center lg:text-left mb-10">
+                <div className="inline-flex items-center gap-2 bg-[#1c1f28] border border-[#2e3140] rounded-full px-3 py-1 text-xs font-medium text-gray-400 mb-5">
+                  <CallIcon />
+                  Call Analysis
+                </div>
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 tracking-tight">Describe the suspicious call</h1>
+                <p className="text-gray-500 text-sm">Tell us what the caller said or asked for — we'll identify red flags.</p>
+              </div>
 
         <div className="flex flex-col gap-5">
           {/* Caller number */}
@@ -894,7 +1038,7 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
         </div>
 
         {/* Privacy note */}
-        <div className="mt-5 bg-[#131620] border border-[#2e3140] rounded-xl p-4 flex items-start gap-3">
+        <div className="mt-5 bg-[#131620] border border-[#252837] rounded-xl p-4 flex items-start gap-3">
           <span className="text-gray-500 mt-0.5 shrink-0"><LockIconLg /></span>
           <p className="text-gray-400 text-xs leading-relaxed">
             <span className="text-gray-200 font-semibold">Privacy: </span>
@@ -905,10 +1049,10 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
         <button
           onClick={handleAnalyze}
           disabled={!isValid || analyzing}
-          className={`mt-6 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
+          className={`mt-5 mb-8 w-full flex items-center justify-center gap-2.5 py-4 rounded-xl font-bold text-base transition-all duration-200 ${
             isValid && !analyzing
               ? 'bg-white text-black hover:bg-gray-100 shadow-lg shadow-white/10 cursor-pointer'
-              : 'bg-[#2a2d38] text-gray-500 cursor-not-allowed'
+              : 'bg-[#252837] text-gray-600 cursor-not-allowed'
           }`}
         >
           {analyzing ? (
@@ -917,7 +1061,25 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
             <>Analyze Call <ArrowRightIcon /></>
           )}
         </button>
-      </main>
+      </div>
+
+      {/* Side Cards */}
+      <div className="hidden lg:flex flex-col w-[320px] xl:w-[360px] shrink-0 gap-5">
+        <InfoCard 
+          icon={<ActivityIcon />} 
+          title="Context Analysis" 
+          description="We analyze the caller's claims, requested actions, and tone to assess risk." 
+        />
+        <InfoCard 
+          icon={<DatabaseIcon />} 
+          title="Data Verification" 
+          description="Phone numbers and organizational claims are verified against official records." 
+        />
+      </div>
+
+    </div>
+  </main>
+</div>
       <Footer />
     </div>
   )
@@ -925,7 +1087,18 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
 
 // ── RESULTS PAGE ──────────────────────────────────────────────────────────────
 
-const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
+const ResultsPage = ({ onNavigate, result }: { onNavigate: (page: string) => void, result: AnalysisResult | null }) => {
+  if (!result) return <div className="flex-1 flex items-center justify-center text-gray-400">No results available. Please run an analysis first.</div>;
+
+  const riskColors: Record<string, string> = {
+    'HIGH RISK': 'bg-red-900/30 border-red-700/50 text-red-500',
+    'MEDIUM RISK': 'bg-amber-900/30 border-amber-700/50 text-amber-500',
+    'LOW RISK': 'bg-green-900/30 border-green-700/50 text-green-500'
+  };
+  
+  const badgeColor = riskColors[result.risk_level] || riskColors['MEDIUM RISK'];
+
+  return (
   <div className="flex flex-col flex-1">
     <main className="flex-1 max-w-[110rem] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-8">
       {/* Top Breadcrumb & ID */}
@@ -939,16 +1112,16 @@ const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
         </div>
         <div className="flex items-center gap-2 px-3 py-1 rounded-md border border-[#2e3140] bg-[#1c1f28] text-xs font-mono text-gray-400 self-start sm:self-auto">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-          CASE ID: #SCS-8842
+          CASE ID: #SCS-{Math.floor(Math.random() * 10000)}
         </div>
       </div>
 
       {/* Main Alert Card */}
       <div className="bg-[#1c2230] border border-[#2e374a] rounded-xl p-6 mb-4 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-2 bg-amber-900/30 border border-amber-700/50 text-amber-500 text-xs font-bold uppercase tracking-wide px-3 py-1.5 rounded-md self-start">
+          <div className={`flex items-center gap-2 ${badgeColor} text-xs font-bold uppercase tracking-wide px-3 py-1.5 rounded-md self-start`}>
             <WarningTriangleIcon />
-            High Suspicion
+            {result.risk_level}
           </div>
           <div className="flex items-center gap-1.5 text-gray-400 text-xs font-medium">
             <ClockIcon />
@@ -957,10 +1130,10 @@ const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
         </div>
 
         <h1 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">
-          This message matches common utility bill extortion patterns.
+          Analysis complete: Predicted as {result.prediction}
         </h1>
         <p className="text-gray-300 text-sm md:text-base mb-6 max-w-2xl leading-relaxed">
-          The sender uses artificial urgency and an unverified payment link to trick you into transferring money.
+          Risk Score: {result.risk_score}/100. Check the indicators below for details.
         </p>
 
         <div className="flex items-center gap-2 text-gray-400 text-xs border-t border-[#2e374a] pt-4">
@@ -985,51 +1158,23 @@ const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
             <SearchIcon />
             Key warning signs detected
           </h2>
-          <span className="text-xs text-gray-400 font-medium">3 Primary Flags</span>
+          <span className="text-xs text-gray-400 font-medium">{result.indicators.length} Primary Flags</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div className="bg-[#1c1f28] border border-[#2e3140] rounded-xl p-5 flex flex-col h-full">
-            <h3 className="text-white text-sm font-semibold mb-2 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-              Artificial Urgency
-            </h3>
-            <p className="text-gray-400 text-xs leading-relaxed mb-4 flex-1">
-              The message pressures you to act immediately tonight to prevent verification.
-            </p>
-            <div className="bg-[#242833] rounded-lg p-3 border border-[#3a3d4a]">
-              <p className="text-gray-500 text-[10px] uppercase font-bold tracking-wider mb-1">Evidence excerpt</p>
-              <p className="text-gray-300 text-xs font-mono break-all">"disconnected tonight at 9:30 PM"</p>
+          {result.indicators.length > 0 ? result.indicators.map((indicator, idx) => (
+            <div key={idx} className="bg-[#1c1f28] border border-[#2e3140] rounded-xl p-5 flex flex-col h-full">
+              <h3 className="text-white text-sm font-semibold mb-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                Flag #{idx + 1}
+              </h3>
+              <p className="text-gray-400 text-xs leading-relaxed flex-1">
+                {indicator}
+              </p>
             </div>
-          </div>
-
-          <div className="bg-[#1c1f28] border border-[#2e3140] rounded-xl p-5 flex flex-col h-full">
-            <h3 className="text-white text-sm font-semibold mb-2 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-              Suspicious App Download
-            </h3>
-            <p className="text-gray-400 text-xs leading-relaxed mb-4 flex-1">
-              Official utilities never ask customers to download APK files via text links.
-            </p>
-            <div className="bg-[#242833] rounded-lg p-3 border border-[#3a3d4a]">
-              <p className="text-gray-500 text-[10px] uppercase font-bold tracking-wider mb-1">Evidence excerpt</p>
-              <p className="text-gray-300 text-xs font-mono break-all">"via apk: mp-mpeb-bill.apk"</p>
-            </div>
-          </div>
-
-          <div className="bg-[#1c1f28] border border-[#2e3140] rounded-xl p-5 flex flex-col h-full">
-            <h3 className="text-white text-sm font-semibold mb-2 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-              Unverified Contact Number
-            </h3>
-            <p className="text-gray-400 text-xs leading-relaxed mb-4 flex-1">
-              Direct personal 10-digit mobile number instead of recognized official discom helpline.
-            </p>
-            <div className="bg-[#242833] rounded-lg p-3 border border-[#3a3d4a]">
-              <p className="text-gray-500 text-[10px] uppercase font-bold tracking-wider mb-1">Evidence excerpt</p>
-              <p className="text-gray-300 text-xs font-mono break-all">"contact 98260XXXXX"</p>
-            </div>
-          </div>
+          )) : (
+            <div className="text-gray-400 text-sm">No specific scam indicators found.</div>
+          )}
         </div>
 
         <button className="w-full py-3 bg-[#1c1f28] border border-[#2e3140] rounded-lg hover:bg-[#242833] transition-colors text-xs font-semibold text-gray-300 cursor-pointer">
@@ -1058,31 +1203,17 @@ const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="flex items-start gap-3 bg-[#1c1f28] border border-[#2e3140] rounded-lg p-4">
-            <span className="text-gray-400 mt-0.5"><BanIcon /></span>
-            <div>
-              <p className="text-gray-200 text-sm font-semibold mb-1">Do NOT click the APK download link or install files</p>
-              <p className="text-gray-400 text-xs leading-relaxed">If downloaded, do not install or grant accessibility permissions. Delete it immediately.</p>
+          {result.recommendations.map((rec, idx) => (
+            <div key={idx} className="flex items-start gap-3 bg-[#1c1f28] border border-[#2e3140] rounded-lg p-4">
+              <span className="text-gray-400 mt-0.5"><ShieldIcon /></span>
+              <div>
+                <p className="text-gray-200 text-sm font-semibold mb-1">{rec}</p>
+              </div>
             </div>
-          </div>
-
-          <div className="flex items-start gap-3 bg-[#1c1f28] border border-[#2e3140] rounded-lg p-4">
-            <span className="text-gray-400 mt-0.5"><PhoneOffIcon /></span>
-            <div>
-              <p className="text-gray-200 text-sm font-semibold mb-1">Avoid calling the personal number provided</p>
-              <p className="text-gray-400 text-xs leading-relaxed">Scammers impersonate electricity department desk officers to request UPI test transactions.</p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-3 bg-[#1c1f28] border border-[#2e3140] rounded-lg p-4">
-            <span className="text-gray-400 mt-0.5">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" /></svg>
-            </span>
-            <div>
-              <p className="text-gray-200 text-sm font-semibold mb-1">Verify directly via official electricity board portal</p>
-              <p className="text-gray-400 text-xs leading-relaxed">Check your consumer ID on the legitimate power board mobile app or consumer helpline.</p>
-            </div>
-          </div>
+          ))}
+          {result.recommendations.length === 0 && (
+            <div className="text-gray-400 text-sm">No specific recommendations. Maintain general safety practices.</div>
+          )}
         </div>
       </div>
 
@@ -1104,7 +1235,8 @@ const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
     </main>
     <Footer />
   </div>
-)
+  );
+}
 
 // ── Main App ──────────────────────────────────────────────────────────────────
 
@@ -1112,8 +1244,14 @@ const NAV_LINKS = ['Home', 'Check a Scam', 'Safety Help', 'Learn']
 
 const App = () => {
   const [activeNav, setActiveNav] = useState('Home')
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
 
-  const handleNavigate = (page: string) => setActiveNav(page)
+  const handleNavigate = (page: string) => {
+    setActiveNav(page)
+    if (page === 'Home' || page === 'Check a Scam') {
+      setAnalysisResult(null)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#0f1117] text-white flex flex-col" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
@@ -1165,13 +1303,13 @@ const App = () => {
         <ScreenshotUploadPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
       )}
       {activeNav === 'Paste Message' && (
-        <MessageInputPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
+        <MessageInputPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} setAnalysisResult={setAnalysisResult} />
       )}
       {activeNav === 'Describe Call' && (
         <CallDescribePage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
       )}
       {activeNav === 'Results' && (
-        <ResultsPage onNavigate={handleNavigate} />
+        <ResultsPage onNavigate={handleNavigate} result={analysisResult} />
       )}
       {(activeNav === 'Safety Help' || activeNav === 'Learn') && (
         <div className="flex-1 flex flex-col items-center justify-center text-gray-500 gap-3 py-24">
