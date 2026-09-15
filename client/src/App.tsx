@@ -673,6 +673,25 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
   const [description, setDescription] = useState('')
   const [requested, setRequested] = useState<string[]>([])
   const [analyzing, setAnalyzing] = useState(false)
+  const [audioFile, setAudioFile] = useState<File | null>(null)
+  const [audioDragOver, setAudioDragOver] = useState(false)
+  const [audioUrl, setAudioUrl] = useState<string | null>(null)
+  const audioInputRef = useRef<HTMLInputElement>(null)
+
+  const handleAudioFile = useCallback((f: File) => {
+    const allowed = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/webm', 'audio/x-m4a', 'audio/mp4']
+    if (!allowed.some(t => f.type.includes(t.split('/')[1])) && !f.name.match(/\.(mp3|wav|ogg|m4a|webm)$/i)) return
+    if (audioUrl) URL.revokeObjectURL(audioUrl)
+    setAudioFile(f)
+    setAudioUrl(URL.createObjectURL(f))
+  }, [audioUrl])
+
+  const removeAudio = () => {
+    if (audioUrl) URL.revokeObjectURL(audioUrl)
+    setAudioFile(null)
+    setAudioUrl(null)
+    if (audioInputRef.current) audioInputRef.current.value = ''
+  }
 
   const toggleRequested = (item: string) => {
     setRequested(prev => prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item])
@@ -782,6 +801,95 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
               rows={6}
               className="w-full bg-[#1c1f28] border border-[#2e3140] rounded-2xl text-white text-sm placeholder-gray-600 px-5 py-4 outline-none resize-none focus:border-[#4a5568] focus:bg-[#222530] transition-all duration-200 leading-relaxed"
             />
+          </div>
+
+          {/* Voice Recording Upload */}
+          <div>
+            <label className="block text-gray-300 text-sm font-semibold mb-1">
+              Upload voice recording <span className="text-gray-500 font-normal">(optional)</span>
+            </label>
+            <p className="text-gray-500 text-xs mb-3">If you recorded the call, upload it for a deeper audio analysis.</p>
+
+            {!audioFile ? (
+              <div
+                onDragOver={(e) => { e.preventDefault(); setAudioDragOver(true) }}
+                onDragLeave={() => setAudioDragOver(false)}
+                onDrop={(e) => { e.preventDefault(); setAudioDragOver(false); const f = e.dataTransfer.files[0]; if (f) handleAudioFile(f) }}
+                onClick={() => audioInputRef.current?.click()}
+                className={`flex items-center gap-4 rounded-xl border-2 border-dashed cursor-pointer transition-all duration-200 px-6 py-5 ${
+                  audioDragOver
+                    ? 'border-indigo-500 bg-indigo-500/5 scale-[1.01]'
+                    : 'border-[#2e3140] bg-[#1c1f28] hover:border-[#4a4e5a] hover:bg-[#222530]'
+                }`}
+              >
+                <input
+                  ref={audioInputRef}
+                  type="file"
+                  accept="audio/*,.mp3,.wav,.ogg,.m4a,.webm"
+                  className="hidden"
+                  onChange={(e) => { const f = e.target.files?.[0]; if (f) handleAudioFile(f) }}
+                />
+                {/* Waveform icon */}
+                <div className={`shrink-0 transition-colors duration-200 ${audioDragOver ? 'text-indigo-400' : 'text-gray-500'}`}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18V5l12-2v13" />
+                    <circle cx="6" cy="18" r="3" />
+                    <circle cx="18" cy="16" r="3" />
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-sm font-semibold">
+                    {audioDragOver ? 'Drop audio file here' : 'Drag & drop your recording'}
+                  </p>
+                  <p className="text-gray-400 text-xs mt-0.5">or <span className="text-indigo-400 font-medium">click to browse</span> · MP3, WAV, OGG, M4A, WEBM</p>
+                </div>
+                <div className="flex flex-col items-end gap-1 shrink-0">
+                  {['MP3', 'WAV', 'OGG', 'M4A'].map(fmt => (
+                    <span key={fmt} className="text-[9px] font-bold text-gray-600 border border-[#2e3140] rounded px-1.5 py-0.5">{fmt}</span>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="rounded-xl border border-[#2e3140] bg-[#1c1f28] overflow-hidden">
+                {/* Audio player */}
+                <div className="px-5 pt-5 pb-3">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-9 h-9 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-white text-sm font-semibold truncate">{audioFile.name}</p>
+                      <p className="text-gray-400 text-xs">{(audioFile.size / 1024).toFixed(1)} KB · {audioFile.type || 'audio'}</p>
+                    </div>
+                    <button
+                      onClick={removeAudio}
+                      className="ml-auto shrink-0 flex items-center justify-center w-7 h-7 rounded-full bg-[#2a2d38] hover:bg-[#3a3d4a] text-gray-400 hover:text-white transition-colors"
+                      title="Remove recording"
+                    >
+                      <XIcon />
+                    </button>
+                  </div>
+                  {audioUrl && (
+                    <audio
+                      controls
+                      src={audioUrl}
+                      className="w-full h-9"
+                      style={{ colorScheme: 'dark' }}
+                    />
+                  )}
+                </div>
+                {/* Bottom strip */}
+                <div className="px-5 py-3 border-t border-[#2e3140] flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-indigo-400 text-xs font-medium">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    Recording ready for analysis
+                  </div>
+                  <button onClick={removeAudio} className="text-gray-500 hover:text-gray-200 text-xs transition-colors">Remove</button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
