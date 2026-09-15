@@ -87,13 +87,6 @@ const TranslateIcon = () => (
   </svg>
 )
 
-const CogIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="3" />
-    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-  </svg>
-)
-
 // ── Shared Verify Card ────────────────────────────────────────────────────────
 
 const WarningTriangleIcon = () => (
@@ -176,6 +169,66 @@ const ShareIcon = () => (
   </svg>
 )
 
+const ExternalLinkIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    <polyline points="15 3 21 3 21 9" />
+    <line x1="10" y1="14" x2="21" y2="3" />
+  </svg>
+)
+
+const SmartphoneIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+    <line x1="12" y1="18" x2="12.01" y2="18" />
+  </svg>
+)
+
+const KeyIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+  </svg>
+)
+
+const FileTextIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <line x1="16" y1="13" x2="8" y2="13" />
+    <line x1="16" y1="17" x2="8" y2="17" />
+    <polyline points="10 9 9 9 8 9" />
+  </svg>
+)
+
+const MoneyIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+    <line x1="1" y1="10" x2="23" y2="10" />
+  </svg>
+)
+
+const ShieldAlertIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <line x1="12" y1="8" x2="12" y2="12" />
+    <line x1="12" y1="16" x2="12.01" y2="16" />
+  </svg>
+)
+
+const BuildingIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="1" />
+    <path d="M3 9h18" />
+    <path d="M9 21V9" />
+  </svg>
+)
+
+const PhoneCallIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.4 2 2 0 0 1 3.06 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+)
+
 interface VerifyCardProps {
   icon: React.ReactNode
   title: string
@@ -212,6 +265,109 @@ const VerifyCard = ({ icon, title, description, action, onClick }: VerifyCardPro
   )
 }
 
+// ── Situation Card (Safety Help) ─────────────────────────────────────────────
+
+interface SituationCardProps {
+  icon: React.ReactNode
+  title: string
+  description: string
+  onClick: () => void
+  accentColor?: string
+}
+
+const SituationCard = ({ icon, title, description, onClick, accentColor = '#4A5C6A' }: SituationCardProps) => {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex flex-col items-start p-5 rounded-xl border text-left w-full gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#CCD0CF]/40"
+      style={{
+        background: hovered ? '#253745' : '#11212D',
+        borderColor: hovered ? accentColor : '#253745',
+        transition: 'background 0.18s, border-color 0.18s',
+        cursor: 'pointer',
+      }}
+      aria-label={title}
+    >
+      <div className="flex items-start justify-between w-full">
+        <div
+          className="w-10 h-10 rounded-lg flex items-center justify-center"
+          style={{ background: '#253745', color: '#9BA8AB' }}
+        >
+          {icon}
+        </div>
+        <span style={{ color: hovered ? '#CCD0CF' : '#4A5C6A', transition: 'color 0.18s' }}>
+          <ArrowRightIcon />
+        </span>
+      </div>
+      <div>
+        <h3 className="font-semibold text-base mb-1" style={{ color: '#CCD0CF' }}>{title}</h3>
+        <p className="text-sm" style={{ color: '#9BA8AB' }}>{description}</p>
+      </div>
+    </button>
+  )
+}
+
+// ── Resource Card (Safety Help) ───────────────────────────────────────────────
+
+interface ResourceCardProps {
+  icon: React.ReactNode
+  name: string
+  purpose: string
+  actionLabel: string
+  href?: string
+  onClick?: () => void
+  isExternal?: boolean
+}
+
+const ResourceCard = ({ icon, name, purpose, actionLabel, href, onClick, isExternal = false }: ResourceCardProps) => {
+  const [hovered, setHovered] = useState(false)
+  const Tag = href ? 'a' : 'div'
+  return (
+    <Tag
+      href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'noopener noreferrer' : undefined}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex items-center gap-4 p-4 rounded-xl border w-full"
+      style={{
+        background: hovered ? '#253745' : '#11212D',
+        borderColor: hovered ? '#4A5C6A' : '#253745',
+        transition: 'background 0.18s, border-color 0.18s',
+        textDecoration: 'none',
+      }}
+    >
+      <div
+        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+        style={{ background: '#253745', color: '#9BA8AB' }}
+      >
+        {icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="font-semibold text-sm" style={{ color: '#CCD0CF' }}>{name}</p>
+        <p className="text-xs mt-0.5" style={{ color: '#9BA8AB' }}>{purpose}</p>
+      </div>
+      <button
+        onClick={onClick}
+        className="shrink-0 flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border transition-colors"
+        style={{
+          color: '#CCD0CF',
+          borderColor: '#4A5C6A',
+          background: 'transparent',
+          cursor: 'pointer',
+        }}
+        aria-label={actionLabel}
+      >
+        {actionLabel}
+        {isExternal && <ExternalLinkIcon />}
+      </button>
+    </Tag>
+  )
+}
+
 // ── Shared Footer ─────────────────────────────────────────────────────────────
 
 const Footer = () => (
@@ -245,6 +401,674 @@ const Footer = () => (
     </div>
   </footer>
 )
+
+// ── SAFETY HELP PAGE (MAIN HUB) ──────────────────────────────────────────────
+
+const SafetyHelpPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
+  <div className="flex flex-col flex-1">
+    <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10 md:py-14">
+
+      {/* Section A — Page Header */}
+      <div className="flex flex-col items-center text-center mb-10">
+        <div
+          className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+          style={{ background: '#11212D', border: '1px solid #253745' }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9BA8AB" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2" style={{ color: '#CCD0CF' }}>Safety Help</h1>
+        <p className="text-base" style={{ color: '#9BA8AB' }}>Get the right next step for your situation.</p>
+      </div>
+
+      {/* Section B — Emergency Action Banner */}
+      <div
+        className="rounded-xl p-6 mb-8"
+        style={{ background: '#11212D', border: '1px solid #253745' }}
+      >
+        <div className="flex items-start gap-4">
+          <div
+            className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+            style={{ background: '#253745' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#CCD0CF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+              <line x1="1" y1="10" x2="23" y2="10" />
+            </svg>
+          </div>
+          <div className="flex-1">
+            <h2 className="font-semibold text-lg mb-1" style={{ color: '#CCD0CF' }}>Already lost money?</h2>
+            <p className="text-sm mb-4" style={{ color: '#9BA8AB' }}>Act quickly and contact your bank through an official channel.</p>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <button
+                onClick={() => onNavigate('safety/incident')}
+                className="flex items-center gap-2 font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors"
+                style={{ background: '#CCD0CF', color: '#06141B', cursor: 'pointer' }}
+              >
+                Get recovery steps <ArrowRightIcon />
+              </button>
+              <button
+                onClick={() => onNavigate('safety/actions')}
+                className="text-sm font-medium transition-colors"
+                style={{ color: '#9BA8AB', background: 'none', border: 'none', cursor: 'pointer' }}
+              >
+                I only received a suspicious message �'
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Section C — Situation Cards */}
+      <div className="mb-10">
+        <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#4A5C6A' }}>What happened?</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <SituationCard
+            icon={<MessageIcon />}
+            title="Suspicious message"
+            description="Check what you received."
+            onClick={() => onNavigate('Check a Scam')}
+          />
+          <SituationCard
+            icon={<KeyIcon />}
+            title="Someone asked for my OTP"
+            description="Learn what to do next."
+            onClick={() => onNavigate('safety/otp')}
+          />
+          <SituationCard
+            icon={<PhoneCallIcon />}
+            title="Threatening or fake official call"
+            description="Stay calm and verify."
+            onClick={() => onNavigate('safety/call')}
+          />
+          <SituationCard
+            icon={<MoneyIcon />}
+            title="I transferred money"
+            description="See immediate response steps."
+            onClick={() => onNavigate('safety/incident')}
+          />
+          <div className="sm:col-span-2">
+            <SituationCard
+              icon={<SmartphoneIcon />}
+              title="Suspicious app installed"
+              description="Reduce risk and secure your device."
+              onClick={() => onNavigate('safety/app')}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Section D — Official Help */}
+      <div className="mb-10">
+        <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#4A5C6A' }}>Official help</p>
+        <div className="flex flex-col gap-3">
+          <ResourceCard
+            icon={<BuildingIcon />}
+            name="National Cybercrime Reporting Portal"
+            purpose="File a cyber fraud complaint online."
+            actionLabel="Open portal"
+            href="https://cybercrime.gov.in"
+            isExternal
+          />
+          <ResourceCard
+            icon={<PhoneIcon />}
+            name="Cyber Fraud Helpline — 1930"
+            purpose="National helpline for financial cyber fraud. Available 24×7."
+            actionLabel="Dial 1930"
+            href="tel:1930"
+          />
+          <ResourceCard
+            icon={<BankIcon />}
+            name="Your Bank — Official Support"
+            purpose="Call the number on the back of your card or your bank\'s official website."
+            actionLabel="How to find it"
+            onClick={() => onNavigate('safety/incident')}
+          />
+        </div>
+      </div>
+
+      {/* Section E — Evidence Checklist */}
+      <button
+        onClick={() => onNavigate('safety/incident/evidence')}
+        className="w-full flex items-center gap-4 p-5 rounded-xl border text-left transition-colors"
+        style={{ background: '#11212D', borderColor: '#253745', cursor: 'pointer' }}
+      >
+        <div
+          className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+          style={{ background: '#253745', color: '#9BA8AB' }}
+        >
+          <FileTextIcon />
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold text-sm" style={{ color: '#CCD0CF' }}>Keep your evidence</p>
+          <p className="text-xs mt-0.5" style={{ color: '#9BA8AB' }}>Save transaction details, messages, and screenshots.</p>
+        </div>
+        <span style={{ color: '#4A5C6A' }}><ArrowRightIcon /></span>
+      </button>
+
+    </main>
+    <Footer />
+  </div>
+)
+
+// ── SAFETY INCIDENT PAGE (/safety/incident) ───────────────────────────────────
+
+const SafetyIncidentPage = ({ onBack }: { onBack: () => void }) => (
+  <div className="flex flex-col flex-1">
+    <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10 md:py-14">
+
+      <button
+        onClick={onBack}
+        className="flex items-center gap-2 text-sm mb-8 cursor-pointer group transition-colors"
+        style={{ color: '#9BA8AB', background: 'none', border: 'none' }}
+      >
+        <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+        Back to Safety Help
+      </button>
+
+      <div className="mb-8">
+        <div
+          className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium mb-4"
+          style={{ background: '#11212D', border: '1px solid #253745', color: '#9BA8AB' }}
+        >
+          <MoneyIcon /> Money transferred
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2" style={{ color: '#CCD0CF' }}>Recovery steps</h1>
+        <p className="text-sm" style={{ color: '#9BA8AB' }}>Act as quickly as possible. Every minute matters when money is involved.</p>
+      </div>
+
+      {/* Steps */}
+      <div className="flex flex-col gap-4 mb-10">
+        {[
+          {
+            step: '1',
+            title: 'Call your bank immediately',
+            detail: "Use the number on the back of your debit/credit card or find it on your bank\'s official website. Request an immediate block or hold on the transaction. Do not use numbers from search engines or messages."
+          },
+          {
+            step: '2',
+            title: 'Dial the Cyber Fraud Helpline \u2014 1930',
+            detail: 'Call 1930 (National Cyber Crime Helpline) and report the fraud. Provide your transaction ID, the amount, the recipient UPI ID or account number, and the approximate time.'
+          },
+          {
+            step: '3',
+            title: 'File a complaint at cybercrime.gov.in',
+            detail: 'Register a formal complaint on the National Cybercrime Reporting Portal. You will receive a reference number \u2014 save it for follow-up.'
+          },
+          {
+            step: '4',
+            title: 'File an FIR at your nearest police station',
+            detail: 'Bring printed copies of your transaction receipts, screenshots, and any messages. A written complaint creates an official record that supports your claim.'
+          },
+          {
+            step: '5',
+            title: 'Preserve all evidence',
+            detail: 'Do not delete any messages, calls, or transaction confirmations. Save transaction IDs, UPI reference numbers, and screenshots of any conversations.'
+          },
+        ].map(({ step, title, detail }) => (
+          <div
+            key={step}
+            className="flex gap-4 p-5 rounded-xl border"
+            style={{ background: '#11212D', borderColor: '#253745' }}
+          >
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm font-bold"
+              style={{ background: '#253745', color: '#CCD0CF' }}
+            >
+              {step}
+            </div>
+            <div>
+              <p className="font-semibold text-sm mb-1" style={{ color: '#CCD0CF' }}>{title}</p>
+              <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>{detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Quick-dial */}
+      <a
+        href="tel:1930"
+        className="flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold text-base mb-4 transition-colors"
+        style={{ background: '#CCD0CF', color: '#06141B', textDecoration: 'none' }}
+      >
+        <PhoneIcon /> Call 1930 — Cyber Fraud Helpline
+      </a>
+      <a
+        href="https://cybercrime.gov.in"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-sm border transition-colors"
+        style={{ background: 'transparent', borderColor: '#4A5C6A', color: '#CCD0CF', textDecoration: 'none' }}
+      >
+        File complaint at cybercrime.gov.in <ExternalLinkIcon />
+      </a>
+
+      <p className="text-center text-xs mt-6" style={{ color: '#4A5C6A' }}>
+        ScamShield provides advisory guidance only. We cannot guarantee recovery of transferred funds.
+      </p>
+    </main>
+    <Footer />
+  </div>
+)
+
+// ── SAFETY ACTIONS PAGE (/safety/actions) ────────────────────────────────────
+
+const SafetyActionsPage = ({ onBack }: { onBack: () => void }) => (
+  <div className="flex flex-col flex-1">
+    <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10 md:py-14">
+
+      <button
+        onClick={onBack}
+        className="flex items-center gap-2 text-sm mb-8 cursor-pointer group transition-colors"
+        style={{ color: '#9BA8AB', background: 'none', border: 'none' }}
+      >
+        <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+        Back to Safety Help
+      </button>
+
+      <div className="mb-8">
+        <div
+          className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium mb-4"
+          style={{ background: '#11212D', border: '1px solid #253745', color: '#9BA8AB' }}
+        >
+          <ShieldAlertIcon /> Suspicious message received
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2" style={{ color: '#CCD0CF' }}>Immediate safety actions</h1>
+        <p className="text-sm" style={{ color: '#9BA8AB' }}>You haven't lost money yet. Take these steps now to stay safe.</p>
+      </div>
+
+      <div className="flex flex-col gap-3 mb-10">
+        {[
+          { icon: <BanIcon />, title: 'Do not click any links', detail: 'Even if the link looks official. Fraudulent links may steal your credentials or install harmful software.' },
+          { icon: <PhoneOffIcon />, title: 'Do not call back unknown numbers', detail: 'Scammers sometimes leave call-back numbers in messages. Always verify by finding the official number independently.' },
+          { icon: <LockIconLg />, title: 'Do not share any OTP, PIN, or password', detail: 'No bank, government agency, or payment provider will ever ask for these over a message.' },
+          { icon: <CheckCircleIcon />, title: 'Report the message', detail: 'Forward suspicious SMS to 1909 (Sanchar Saathi TRAI spam helpline). You can also report on the National Cybercrime Portal.' },
+          { icon: <BanIcon />, title: 'Block the sender', detail: 'Block the number or email on your device and mark it as spam to protect yourself and others.' },
+        ].map(({ icon, title, detail }, i) => (
+          <div
+            key={i}
+            className="flex gap-4 p-5 rounded-xl border"
+            style={{ background: '#11212D', borderColor: '#253745' }}
+          >
+            <div style={{ color: '#9BA8AB', marginTop: 2, flexShrink: 0 }}>{icon}</div>
+            <div>
+              <p className="font-semibold text-sm mb-1" style={{ color: '#CCD0CF' }}>{title}</p>
+              <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>{detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <a
+        href="https://cybercrime.gov.in"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-sm border transition-colors"
+        style={{ background: 'transparent', borderColor: '#4A5C6A', color: '#CCD0CF', textDecoration: 'none' }}
+      >
+        Report at cybercrime.gov.in <ExternalLinkIcon />
+      </a>
+    </main>
+    <Footer />
+  </div>
+)
+
+// ── SAFETY OTP PAGE (/safety/otp) ────────────────────────────────────────────
+
+const SafetyOtpPage = ({ onBack }: { onBack: () => void }) => (
+  <div className="flex flex-col flex-1">
+    <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10 md:py-14">
+
+      <button
+        onClick={onBack}
+        className="flex items-center gap-2 text-sm mb-8 cursor-pointer group transition-colors"
+        style={{ color: '#9BA8AB', background: 'none', border: 'none' }}
+      >
+        <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+        Back to Safety Help
+      </button>
+
+      <div className="mb-8">
+        <div
+          className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium mb-4"
+          style={{ background: '#11212D', border: '1px solid #253745', color: '#9BA8AB' }}
+        >
+          <KeyIcon /> OTP shared
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2" style={{ color: '#CCD0CF' }}>Someone asked for your OTP</h1>
+        <p className="text-sm" style={{ color: '#9BA8AB' }}>If you shared your OTP with someone, act immediately.</p>
+      </div>
+
+      {/* Critical warning */}
+      <div
+        className="flex items-start gap-3 p-4 rounded-xl border mb-6"
+        style={{ background: '#1a1210', borderColor: '#4A2010' }}
+      >
+        <span style={{ color: '#cd6a3a', flexShrink: 0, marginTop: 2 }}><AlertCircleIcon /></span>
+        <p className="text-sm leading-relaxed" style={{ color: '#cd9a7a' }}>
+          <strong>Sharing an OTP is equivalent to giving someone full access to that transaction or account.</strong> Your bank cannot always reverse a transaction authorised with a valid OTP.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-3 mb-10">
+        {[
+          { step: '1', title: 'Call your bank immediately', detail: 'Ask them to place a freeze or alert on your account. Use only the number on the back of your card or your bank\'s official app.' },
+          { step: '2', title: 'Change your UPI PIN and mobile banking password', detail: 'Do this from your bank\'s official app. If your phone is compromised, use a different, trusted device.' },
+          { step: '3', title: 'Enable additional login alerts', detail: 'Turn on SMS and email alerts for all transactions so you can detect any unauthorized activity immediately.' },
+          { step: '4', title: 'Monitor your accounts closely', detail: 'Check your transaction history for the next 48–72 hours. Report any suspicious transaction to your bank without delay.' },
+          { step: '5', title: 'Report to 1930 if money was lost', detail: 'Call the National Cyber Crime Helpline on 1930 and file a complaint at cybercrime.gov.in.' },
+        ].map(({ step, title, detail }) => (
+          <div
+            key={step}
+            className="flex gap-4 p-5 rounded-xl border"
+            style={{ background: '#11212D', borderColor: '#253745' }}
+          >
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm font-bold"
+              style={{ background: '#253745', color: '#CCD0CF' }}
+            >
+              {step}
+            </div>
+            <div>
+              <p className="font-semibold text-sm mb-1" style={{ color: '#CCD0CF' }}>{title}</p>
+              <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>{detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <a
+        href="tel:1930"
+        className="flex items-center justify-center gap-2 w-full py-4 rounded-xl font-bold text-base transition-colors"
+        style={{ background: '#CCD0CF', color: '#06141B', textDecoration: 'none' }}
+      >
+        <PhoneIcon /> Call 1930 — Cyber Fraud Helpline
+      </a>
+    </main>
+    <Footer />
+  </div>
+)
+
+// ── SAFETY CALL PAGE (/safety/call) ──────────────────────────────────────────
+
+const SafetyCallPage = ({ onBack }: { onBack: () => void }) => (
+  <div className="flex flex-col flex-1">
+    <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10 md:py-14">
+
+      <button
+        onClick={onBack}
+        className="flex items-center gap-2 text-sm mb-8 cursor-pointer group transition-colors"
+        style={{ color: '#9BA8AB', background: 'none', border: 'none' }}
+      >
+        <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+        Back to Safety Help
+      </button>
+
+      <div className="mb-8">
+        <div
+          className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium mb-4"
+          style={{ background: '#11212D', border: '1px solid #253745', color: '#9BA8AB' }}
+        >
+          <PhoneCallIcon /> Threatening call
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2" style={{ color: '#CCD0CF' }}>Threatening or fake official call</h1>
+        <p className="text-sm" style={{ color: '#9BA8AB' }}>Stay calm. Real officials do not threaten, demand money, or ask for OTPs on phone calls.</p>
+      </div>
+
+      {/* Red flags */}
+      <div
+        className="p-5 rounded-xl border mb-6"
+        style={{ background: '#11212D', borderColor: '#253745' }}
+      >
+        <p className="font-semibold text-sm mb-3" style={{ color: '#CCD0CF' }}>Common red flags on scam calls</p>
+        <ul className="flex flex-col gap-2">
+          {[
+            'Caller threatens arrest, disconnection, or account freeze',
+            'Caller asks for OTP, PIN, or password',
+            'Caller asks you to transfer money to a "safe account"',
+            'Caller asks you to install a remote-access app (AnyDesk, TeamViewer)',
+            'Caller pressures you not to tell anyone or to stay on the line',
+          ].map((flag, i) => (
+            <li key={i} className="flex items-start gap-2 text-xs" style={{ color: '#9BA8AB' }}>
+              <span className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: '#4A5C6A' }} />
+              {flag}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="flex flex-col gap-3 mb-10">
+        {[
+          { title: 'Hang up immediately', detail: 'You are always allowed to end the call. A genuine official will not object. Take a breath.' },
+          { title: 'Do not call back the same number', detail: 'Find the official contact number from the organization\'s official website or a printed statement.' },
+          { title: 'Verify the claim independently', detail: 'Call your bank, electricity board, or government department using the number from their official website — not from any number in the call.' },
+          { title: 'Report the call', detail: 'You can report spam calls at Sanchar Saathi (sancharsaathi.gov.in) or file a complaint at cybercrime.gov.in.' },
+        ].map(({ title, detail }, i) => (
+          <div
+            key={i}
+            className="flex gap-4 p-5 rounded-xl border"
+            style={{ background: '#11212D', borderColor: '#253745' }}
+          >
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm font-bold"
+              style={{ background: '#253745', color: '#CCD0CF' }}
+            >
+              {i + 1}
+            </div>
+            <div>
+              <p className="font-semibold text-sm mb-1" style={{ color: '#CCD0CF' }}>{title}</p>
+              <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>{detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <a
+        href="https://cybercrime.gov.in"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-sm border transition-colors"
+        style={{ background: 'transparent', borderColor: '#4A5C6A', color: '#CCD0CF', textDecoration: 'none' }}
+      >
+        Report at cybercrime.gov.in <ExternalLinkIcon />
+      </a>
+    </main>
+    <Footer />
+  </div>
+)
+
+// ── SAFETY APP PAGE (/safety/app) ────────────────────────────────────────────
+
+const SafetyAppPage = ({ onBack }: { onBack: () => void }) => (
+  <div className="flex flex-col flex-1">
+    <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10 md:py-14">
+
+      <button
+        onClick={onBack}
+        className="flex items-center gap-2 text-sm mb-8 cursor-pointer group transition-colors"
+        style={{ color: '#9BA8AB', background: 'none', border: 'none' }}
+      >
+        <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+        Back to Safety Help
+      </button>
+
+      <div className="mb-8">
+        <div
+          className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium mb-4"
+          style={{ background: '#11212D', border: '1px solid #253745', color: '#9BA8AB' }}
+        >
+          <SmartphoneIcon /> Suspicious app
+        </div>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2" style={{ color: '#CCD0CF' }}>Suspicious app installed</h1>
+        <p className="text-sm" style={{ color: '#9BA8AB' }}>Reduce risk and secure your device. Follow these steps carefully.</p>
+      </div>
+
+      <div
+        className="flex items-start gap-3 p-4 rounded-xl border mb-6"
+        style={{ background: '#11212D', borderColor: '#253745' }}
+      >
+        <span style={{ color: '#9BA8AB', flexShrink: 0, marginTop: 2 }}><AlertCircleIcon /></span>
+        <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>
+          ScamShield cannot determine whether a specific app is fraudulent solely based on its name or absence from a list. These steps apply when you have reason to suspect an app you installed.
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-3 mb-10">
+        {[
+          { step: '1', title: 'Do not grant any more permissions', detail: 'If you are still on the installation screen or permission prompt, deny all permissions and do not proceed.' },
+          { step: '2', title: 'Revoke all existing permissions', detail: 'Go to Settings -> Apps -> [App name] -> Permissions. Revoke access to contacts, SMS, storage, camera, and microphone.' },
+          { step: '3', title: 'Uninstall the app immediately', detail: 'Remove the app from your device. If you cannot uninstall it, restart your phone in Safe Mode (hold power button -> Safe Mode) and uninstall from there.' },
+          { step: '4', title: 'Change passwords for accounts accessed on this device', detail: 'Especially your banking app, UPI app, email, and social media. Use a trusted, separate device to do this if possible.' },
+          { step: '5', title: 'Check for unfamiliar active sessions', detail: 'Review active login sessions in your banking app, Google account, and email. Log out of any sessions you do not recognise.' },
+          { step: '6', title: 'Run a security scan', detail: 'Use a reputable, established mobile security app from an official app store to scan your device for threats.' },
+          { step: '7', title: 'Contact your bank if you suspect a breach', detail: 'If your banking app was open while the suspicious app was running, call your bank and report it. Request a security review of your account.' },
+        ].map(({ step, title, detail }) => (
+          <div
+            key={step}
+            className="flex gap-4 p-5 rounded-xl border"
+            style={{ background: '#11212D', borderColor: '#253745' }}
+          >
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-sm font-bold"
+              style={{ background: '#253745', color: '#CCD0CF' }}
+            >
+              {step}
+            </div>
+            <div>
+              <p className="font-semibold text-sm mb-1" style={{ color: '#CCD0CF' }}>{title}</p>
+              <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>{detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <a
+        href="https://cybercrime.gov.in"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-sm border transition-colors"
+        style={{ background: 'transparent', borderColor: '#4A5C6A', color: '#CCD0CF', textDecoration: 'none' }}
+      >
+        Report at cybercrime.gov.in <ExternalLinkIcon />
+      </a>
+    </main>
+    <Footer />
+  </div>
+)
+
+// ── SAFETY EVIDENCE PAGE (/safety/incident/evidence) ─────────────────────────
+
+const SafetyEvidencePage = ({ onBack }: { onBack: () => void }) => {
+  const items = [
+    { id: 'txn', label: 'Transaction ID / UTR number', detail: 'Found in your bank or UPI app under transaction history.' },
+    { id: 'amount', label: 'Exact amount transferred', detail: 'Including currency and the account or UPI ID it was sent to.' },
+    { id: 'time', label: 'Date and time of the transaction', detail: 'The precise time as shown in the transaction receipt.' },
+    { id: 'recipient', label: 'Recipient UPI ID, phone number, or bank account', detail: 'Note the name as it appeared in the transaction confirmation.' },
+    { id: 'messages', label: 'Screenshots of all suspicious messages', detail: 'Include the sender ID, phone number, or email address.' },
+    { id: 'calls', label: 'Caller number and time of any suspicious calls', detail: 'Check your call log. Note the exact number — even withheld or spoofed numbers appear in logs.' },
+    { id: 'app', label: 'Name and screenshot of any suspicious app', detail: 'Take a screenshot of the app icon and settings page before uninstalling.' },
+    { id: 'bank_statement', label: 'Bank or wallet transaction statement', detail: 'Download a PDF statement from your bank app or internet banking for the relevant date range.' },
+    { id: 'case_id', label: 'Complaint reference number (1930 / cybercrime.gov.in)', detail: 'Save this for all follow-up communications with authorities.' },
+  ]
+  const [checked, setChecked] = useState<string[]>([])
+  const toggle = (id: string) => setChecked(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id])
+
+  return (
+    <div className="flex flex-col flex-1">
+      <main className="flex-1 max-w-3xl w-full mx-auto px-6 py-10 md:py-14">
+
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-sm mb-8 cursor-pointer group transition-colors"
+          style={{ color: '#9BA8AB', background: 'none', border: 'none' }}
+        >
+          <span className="group-hover:-translate-x-0.5 transition-transform duration-150"><ArrowLeftIcon /></span>
+          Back to Safety Help
+        </button>
+
+        <div className="mb-8">
+          <div
+            className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium mb-4"
+            style={{ background: '#11212D', border: '1px solid #253745', color: '#9BA8AB' }}
+          >
+            <FileTextIcon /> Evidence checklist
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2" style={{ color: '#CCD0CF' }}>Keep your evidence</h1>
+          <p className="text-sm" style={{ color: '#9BA8AB' }}>Save each of these before filing a complaint. Evidence significantly improves the chance of a successful resolution.</p>
+        </div>
+
+        <div
+          className="flex items-center justify-between p-4 rounded-xl border mb-6"
+          style={{ background: '#11212D', borderColor: '#253745' }}
+        >
+          <p className="text-sm font-medium" style={{ color: '#CCD0CF' }}>
+            {checked.length} / {items.length} items saved
+          </p>
+          <div
+            className="h-2 rounded-full overflow-hidden"
+            style={{ background: '#253745', width: 120 }}
+          >
+            <div
+              className="h-full rounded-full transition-all duration-300"
+              style={{ background: '#9BA8AB', width: `${(checked.length / items.length) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 mb-8">
+          {items.map(({ id, label, detail }) => {
+            const isChecked = checked.includes(id)
+            return (
+              <button
+                key={id}
+                onClick={() => toggle(id)}
+                className="flex items-start gap-4 p-4 rounded-xl border text-left w-full transition-colors"
+                style={{
+                  background: isChecked ? '#162030' : '#11212D',
+                  borderColor: isChecked ? '#4A5C6A' : '#253745',
+                  cursor: 'pointer',
+                }}
+                aria-pressed={isChecked}
+                aria-label={label}
+              >
+                <div
+                  className="w-5 h-5 rounded flex items-center justify-center shrink-0 mt-0.5 transition-colors"
+                  style={{
+                    background: isChecked ? '#253745' : 'transparent',
+                    border: `1.5px solid ${isChecked ? '#9BA8AB' : '#4A5C6A'}`,
+                  }}
+                >
+                  {isChecked && (
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#CCD0CF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm font-medium" style={{ color: isChecked ? '#9BA8AB' : '#CCD0CF', textDecoration: isChecked ? 'line-through' : 'none' }}>{label}</p>
+                  <p className="text-xs mt-0.5" style={{ color: '#4A5C6A' }}>{detail}</p>
+                </div>
+              </button>
+            )
+          })}
+        </div>
+
+        <div
+          className="p-4 rounded-xl border"
+          style={{ background: '#11212D', borderColor: '#253745' }}
+        >
+          <p className="text-xs leading-relaxed" style={{ color: '#9BA8AB' }}>
+            <span style={{ color: '#CCD0CF', fontWeight: 600 }}>Important: </span>
+            Do not share evidence documents with ScamShield or any unverified third party. Submit them only to your bank, police, or through cybercrime.gov.in.
+          </p>
+        </div>
+
+      </main>
+      <Footer />
+    </div>
+  )
+}
 
 // ── HOME PAGE ─────────────────────────────────────────────────────────────────
 
@@ -288,7 +1112,7 @@ const HomePage = ({ onNavigate }: { onNavigate: (page: string) => void }) => (
               <button onClick={() => onNavigate('Check a Scam')} className="flex items-center gap-2 bg-white text-black font-semibold text-[15px] px-6 py-3.5 rounded-xl hover:bg-gray-100 transition-colors">
                 Check a suspicious message <ArrowRightIcon />
               </button>
-              <button className="flex items-center gap-2 bg-transparent border border-[#27272a] text-gray-300 font-medium text-[15px] px-6 py-3.5 rounded-xl hover:bg-[#18181b] transition-colors">
+              <button onClick={() => onNavigate('safety/incident')} className="flex items-center gap-2 bg-transparent border border-[#27272a] text-gray-300 font-medium text-[15px] px-6 py-3.5 rounded-xl hover:bg-[#18181b] transition-colors">
                 <AlertCircleIcon />
                 I already lost money
               </button>
@@ -372,7 +1196,7 @@ const CheckScamPage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate:
       <div className="text-center mb-6">
         <button className="text-gray-400 text-sm hover:text-gray-200 transition-colors inline-flex items-center gap-1.5 cursor-pointer">
           <AlertCircleIcon />
-          Already transferred money? Open immediate incident assistance →
+          Already transferred money? Open immediate incident assistance �'
         </button>
       </div>
 
@@ -1108,8 +1932,6 @@ const ResultsPage = ({ onNavigate }: { onNavigate: (page: string) => void }) => 
 
 // ── Main App ──────────────────────────────────────────────────────────────────
 
-const NAV_LINKS = ['Home', 'Check a Scam', 'Safety Help', 'Learn']
-
 const App = () => {
   const [activeNav, setActiveNav] = useState('Home')
 
@@ -1173,10 +1995,31 @@ const App = () => {
       {activeNav === 'Results' && (
         <ResultsPage onNavigate={handleNavigate} />
       )}
-      {(activeNav === 'Safety Help' || activeNav === 'Learn') && (
+      {activeNav === 'Safety Help' && (
+        <SafetyHelpPage onNavigate={handleNavigate} />
+      )}
+      {activeNav === 'safety/incident' && (
+        <SafetyIncidentPage onBack={() => handleNavigate('Safety Help')} />
+      )}
+      {activeNav === 'safety/actions' && (
+        <SafetyActionsPage onBack={() => handleNavigate('Safety Help')} />
+      )}
+      {activeNav === 'safety/otp' && (
+        <SafetyOtpPage onBack={() => handleNavigate('Safety Help')} />
+      )}
+      {activeNav === 'safety/call' && (
+        <SafetyCallPage onBack={() => handleNavigate('Safety Help')} />
+      )}
+      {activeNav === 'safety/app' && (
+        <SafetyAppPage onBack={() => handleNavigate('Safety Help')} />
+      )}
+      {activeNav === 'safety/incident/evidence' && (
+        <SafetyEvidencePage onBack={() => handleNavigate('Safety Help')} />
+      )}
+      {activeNav === 'Learn' && (
         <div className="flex-1 flex flex-col items-center justify-center text-gray-500 gap-3 py-24">
           <ShieldIcon />
-          <p className="text-lg font-medium text-gray-400">{activeNav}</p>
+          <p className="text-lg font-medium text-gray-400">Learn</p>
           <p className="text-sm">This section is coming soon.</p>
         </div>
       )}
