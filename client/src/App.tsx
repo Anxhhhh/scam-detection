@@ -146,6 +146,14 @@ const LayersIcon = () => (
   </svg>
 )
 
+const MenuIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"></line>
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+)
+
 const CheckCircleIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
@@ -2427,10 +2435,12 @@ const HelpPage = ({ onNavigate }: HelpPageProps) => {
 
 const App = () => {
   const [activeNav, setActiveNav] = useState('Home')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
 
   const handleNavigate = (page: string) => {
     setActiveNav(page)
+    setMobileMenuOpen(false)
     if (page === 'Home' || page === 'Check a Scam') {
       setAnalysisResult(null)
     }
@@ -2463,17 +2473,52 @@ const App = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 lg:gap-6">
           <button className="hidden sm:flex items-center gap-1.5 text-[13px] text-gray-400 hover:text-white transition-colors">
             <TranslateIcon />
             English / हिंदी
             <ChevronDownIcon />
           </button>
-          <button className="bg-white text-black text-[13px] font-semibold px-5 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+          <button className="hidden sm:block bg-white text-black text-[13px] font-semibold px-5 py-2 rounded-lg hover:bg-gray-200 transition-colors">
             Check Now
+          </button>
+          
+          <button 
+            className="lg:hidden text-gray-400 hover:text-white"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <XIcon /> : <MenuIcon />}
           </button>
         </div>
       </header>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden bg-[#1c1f28] border-b border-[#2e3140] px-6 py-4 absolute w-full z-40 top-[72px]">
+          <nav className="flex flex-col gap-4">
+            {['Home', 'Check a Scam', 'Safety Help', 'Help'].map((link) => (
+              <button
+                key={link}
+                onClick={() => handleNavigate(link)}
+                className={`text-left text-base font-medium ${
+                  activeNav === link ? 'text-white' : 'text-gray-400'
+                }`}
+              >
+                {link}
+              </button>
+            ))}
+            <div className="border-t border-[#2e3140] my-2 pt-4 flex flex-col gap-4">
+              <button className="flex items-center gap-1.5 text-base text-gray-400">
+                <TranslateIcon />
+                English / हिंदी
+              </button>
+              <button className="bg-white text-black text-center font-semibold px-5 py-3 rounded-lg w-full">
+                Check Now
+              </button>
+            </div>
+          </nav>
+        </div>
+      )}
 
       {/* Page Content */}
       {activeNav === 'Home' && (
