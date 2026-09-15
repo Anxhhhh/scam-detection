@@ -1636,7 +1636,7 @@ const MessageInputPage = ({ onBack, onNavigate, setAnalysisResult }: { onBack: (
 
 // ── CALL DESCRIBE PAGE ────────────────────────────────────────────────────────
 
-const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page: string) => void }) => {
+const CallDescribePage = ({ onBack, onNavigate, setAnalysisResult }: { onBack: () => void; onNavigate: (page: string) => void; setAnalysisResult: (res: AnalysisResult) => void }) => {
   const [callerNumber, setCallerNumber] = useState('')
   const [callerClaim, setCallerClaim] = useState('')
   const [description, setDescription] = useState('')
@@ -1670,13 +1670,32 @@ const CallDescribePage = ({ onBack, onNavigate }: { onBack: () => void; onNaviga
 
   const isValid = description.trim().length > 10
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (!isValid) return
     setAnalyzing(true)
-    setTimeout(() => {
+    
+    const parts = [];
+    if (callerClaim) parts.push(`Caller claimed to be: ${callerClaim}`);
+    if (requested.length > 0) parts.push(`Caller requested: ${requested.join(', ')}`);
+    parts.push(`Description of call: ${description}`);
+    
+    const analysisText = parts.join('\n');
+    
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const res = await fetch(`${apiUrl}/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: analysisText })
+      })
+      const data = await res.json()
+      setAnalysisResult(data)
       setAnalyzing(false)
       onNavigate('Results')
-    }, 2000)
+    } catch (error) {
+      console.error(error);
+      setAnalyzing(false)
+    }
   }
 
   return (
@@ -2470,7 +2489,7 @@ const App = () => {
         <MessageInputPage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} setAnalysisResult={setAnalysisResult} />
       )}
       {activeNav === 'Describe Call' && (
-        <CallDescribePage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} />
+        <CallDescribePage onBack={() => handleNavigate('Check a Scam')} onNavigate={handleNavigate} setAnalysisResult={setAnalysisResult} />
       )}
       {activeNav === 'Results' && (
         <ResultsPage onNavigate={handleNavigate} result={analysisResult} />
